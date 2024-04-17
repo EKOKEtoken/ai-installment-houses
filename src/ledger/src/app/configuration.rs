@@ -1,6 +1,5 @@
 use std::cell::RefCell;
 
-use crate::storable::{StorablePrincipal, StorableSupportedInterface};
 use candid::Principal;
 use dip721_rs::SupportedInterface;
 use ic_stable_structures::memory_manager::VirtualMemory;
@@ -10,6 +9,7 @@ use crate::app::memory::{
     CREATED_AT_MEMORY_ID, CUSTODIANS_MEMORY_ID, LOGO_MEMORY_ID, MEMORY_MANAGER, NAME_MEMORY_ID,
     SUPPORTED_INTERFACES_MEMORY_ID, SYMBOL_MEMORY_ID, UPGRADED_AT_MEMORY_ID,
 };
+use crate::storable::{StorablePrincipal, StorableSupportedInterface};
 
 thread_local! {
     /// Contract logo

@@ -187,11 +187,10 @@ impl TokensStorage {
 #[cfg(test)]
 mod test {
 
-    use crate::app::test_utils::{alice, bob, store_mock_token_with};
+    use pretty_assertions::assert_eq;
 
     use super::*;
-
-    use pretty_assertions::assert_eq;
+    use crate::app::test_utils::{alice, bob, store_mock_token_with};
 
     #[test]
     fn test_should_mint_token() {

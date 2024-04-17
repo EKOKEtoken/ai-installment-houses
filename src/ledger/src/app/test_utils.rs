@@ -1,9 +1,8 @@
 use candid::Principal;
 use dip721_rs::{TokenIdentifier, TokenMetadata};
 
-use crate::utils::caller;
-
 use super::storage::{with_tokens_mut, TokensStorage};
+use crate::utils::caller;
 
 pub fn mock_token(id: u64) -> TokenMetadata {
     TokenMetadata {

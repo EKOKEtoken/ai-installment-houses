@@ -5,7 +5,8 @@
 use candid::{Nat, Principal};
 use dip721_rs::{NftError, TokenMetadata};
 
-use super::{configuration::Configuration, storage::TokensStorage};
+use super::configuration::Configuration;
+use super::storage::TokensStorage;
 
 pub struct Inspect;
 

@@ -1,0 +1,82 @@
+type Account = record { owner : principal; subaccount : opt blob };
+type CanisterInitData = record {
+  custodians : vec principal;
+  icp_ledger_canister_id : principal;
+  ledger_canister_id : principal;
+  sale_royalty : nat64;
+};
+type Listing = record {
+  expiration_ns : nat64;
+  seller : Account;
+  icp_price : nat;
+};
+type NftError = variant {
+  UnauthorizedOperator;
+  SelfTransfer;
+  TokenNotFound;
+  UnauthorizedOwner;
+  TxNotFound;
+  SelfApprove;
+  OperatorNotFound;
+  ExistedNFT;
+  OwnerNotFound;
+  Other : text;
+};
+type RejectionCode = variant {
+  NoError;
+  CanisterError;
+  SysTransient;
+  DestinationInvalid;
+  Unknown;
+  SysFatal;
+  CanisterReject;
+};
+type Result = variant { Ok; Err : SwapError };
+type Result_1 = variant { Ok : nat; Err : SwapError };
+type Result_2 = variant { Ok : opt Listing; Err : SwapError };
+type SwapError = variant {
+  Nft : NftError;
+  IcrcTransferFrom : TransferFromError;
+  NoSuchListing;
+  InsufficientAllowance : record { nat; nat };
+  InsufficientBalance : record { nat; nat };
+  IcrcTransfer : TransferError;
+  UnauthorizedCaller;
+  ExpirationTooEarly;
+  ListingExpired;
+  CanisterIsNotOperator;
+  AllowanceExpired;
+  CanisterCall : RejectionCode;
+};
+type TransferError = variant {
+  GenericError : record { message : text; error_code : nat };
+  TemporarilyUnavailable;
+  BadBurn : record { min_burn_amount : nat };
+  Duplicate : record { duplicate_of : nat };
+  BadFee : record { expected_fee : nat };
+  CreatedInFuture : record { ledger_time : nat64 };
+  TooOld;
+  InsufficientFunds : record { balance : nat };
+};
+type TransferFromError = variant {
+  GenericError : record { message : text; error_code : nat };
+  TemporarilyUnavailable;
+  InsufficientAllowance : record { allowance : nat };
+  BadBurn : record { min_burn_amount : nat };
+  Duplicate : record { duplicate_of : nat };
+  BadFee : record { expected_fee : nat };
+  CreatedInFuture : record { ledger_time : nat64 };
+  TooOld;
+  InsufficientFunds : record { balance : nat };
+};
+service : (CanisterInitData) -> {
+  admin_cycles : () -> (nat) query;
+  admin_set_custodians : (vec principal) -> ();
+  admin_set_ledger_canister : (principal) -> ();
+  admin_set_sale_royalty : (nat64) -> ();
+  admin_withdraw : (principal, opt blob, nat) -> (Result);
+  buy : (nat, opt blob) -> (Result_1);
+  get_listing : (nat) -> (Result_2) query;
+  list : (nat, nat, nat64, opt blob) -> (Result);
+  unlist : (nat) -> (Result);
+}

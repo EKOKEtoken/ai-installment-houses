@@ -1,25 +1,89 @@
 //! # DIP721 canister
 
 use candid::{candid_method, Nat, Principal};
-use did::CanisterInitData;
-use ic_cdk_macros::{init, post_upgrade, query, update};
+use did::{CanisterInitData, Listing, SwapResult};
+use dip721_rs::TokenIdentifier;
+use ic_cdk_macros::{init, query, update};
 
 mod app;
+mod constants;
 pub mod did;
 mod inspect;
 mod storable;
 mod utils;
 
 use app::App;
+use icrc_ledger_types::icrc1::account::Subaccount;
 
 #[init]
 pub fn init(init_data: CanisterInitData) {
     App::init(init_data);
 }
 
-#[post_upgrade]
-pub fn post_upgrade() {
-    App::post_upgrade();
+#[query]
+#[candid_method(query)]
+pub fn admin_cycles() -> Nat {
+    App::admin_cycles()
+}
+
+#[update]
+#[candid_method(update)]
+pub fn admin_set_ledger_canister(ledger_canister_id: Principal) {
+    App::admin_set_ledger_canister(ledger_canister_id);
+}
+
+#[update]
+#[candid_method(update)]
+pub fn admin_set_sale_royalty(sale_royalty: u64) {
+    App::admin_set_sale_royalty(sale_royalty);
+}
+
+#[update]
+#[candid_method(update)]
+pub fn admin_set_custodians(custodians: Vec<Principal>) {
+    App::admin_set_custodians(custodians);
+}
+
+#[update]
+#[candid_method(update)]
+pub async fn admin_withdraw(
+    withdraw_to: Principal,
+    subaccount: Option<Subaccount>,
+    amount: Nat,
+) -> SwapResult<()> {
+    App::admin_withdraw(withdraw_to, subaccount, amount).await
+}
+
+#[update]
+#[candid_method(update)]
+pub async fn list(
+    token: TokenIdentifier,
+    icp_price: Nat,
+    expiration_ns: u64,
+    subaccount: Option<Subaccount>,
+) -> SwapResult<()> {
+    App::list(token, icp_price, expiration_ns, subaccount).await
+}
+
+#[update]
+#[candid_method(update)]
+pub async fn unlist(token_identifier: TokenIdentifier) -> SwapResult<()> {
+    App::unlist(token_identifier).await
+}
+
+#[query]
+#[candid_method(query)]
+pub async fn get_listing(token_identifier: TokenIdentifier) -> SwapResult<Option<Listing>> {
+    App::get_listing(token_identifier).await
+}
+
+#[update]
+#[candid_method(update)]
+pub async fn buy(
+    token_identifier: TokenIdentifier,
+    subaccount: Option<Subaccount>,
+) -> SwapResult<Nat> {
+    App::buy(token_identifier, subaccount).await
 }
 
 #[allow(dead_code)]

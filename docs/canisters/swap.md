@@ -5,7 +5,7 @@
   - [API](#api)
     - [list](#list)
     - [unlist](#unlist)
-    - [icp\_price](#icp_price)
+    - [get\_listing](#get_listing)
     - [buy](#buy)
 
 ## Introduction
@@ -26,6 +26,7 @@ Arguments:
 
 - `token_identifier`: the ID of the token to list for sale
 - `icp_price`: the ICP price for the token
+- `expiration`: timestamp of the end of listing (nanoseconds)
 
 Conditions:
 
@@ -44,9 +45,9 @@ Conditions:
 
 - The NFT must be owned by `caller`
 
-### icp_price
+### get_listing
 
-Get the ICP price for the given token
+Get the ICP price and the expiration for the given token
 
 Arguments:
 

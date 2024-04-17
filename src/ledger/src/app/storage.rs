@@ -6,12 +6,11 @@ use std::cell::RefCell;
 use dip721_rs::{NftError, TokenIdentifier, TokenMetadata, TxEvent};
 use ic_stable_structures::memory_manager::VirtualMemory;
 use ic_stable_structures::{BTreeMap, DefaultMemoryImpl};
+pub use tokens::TokensStorage;
+pub use tx_history::TxHistory;
 
 use crate::app::memory::{MEMORY_MANAGER, TOKENS_MEMORY_ID, TRANSACTIONS_MEMORY_ID};
 use crate::storable::StorableNat;
-
-pub use tokens::TokensStorage;
-pub use tx_history::TxHistory;
 
 thread_local! {
     /// Tokens storage (NFTs)

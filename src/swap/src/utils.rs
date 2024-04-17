@@ -37,3 +37,15 @@ pub fn caller() -> Principal {
         ic_cdk::caller()
     }
 }
+
+/// Returns canister id
+pub fn canister_id() -> Principal {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        Principal::from_text("lj532-6iaaa-aaaah-qcc7a-cai").unwrap()
+    }
+    #[cfg(target_arch = "wasm32")]
+    {
+        ic_cdk::api::id()
+    }
+}

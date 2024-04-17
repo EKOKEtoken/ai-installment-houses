@@ -20,6 +20,7 @@ getrandom = { workspace = true }
 ic-cdk = { workspace = true }
 ic-cdk-macros = { workspace = true }
 ic-stable-structures = { workspace = true }
+icrc-ledger-types = { workspace = true }
 num-bigint = { workspace = true }
 num-traits = { workspace = true }
 serde = { workspace = true }
