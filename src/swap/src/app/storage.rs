@@ -1,6 +1,7 @@
 use std::cell::RefCell;
 
 use candid::Nat;
+use did::swap::{Listing, SwapError, SwapResult};
 use dip721_rs::{TokenIdentifier, TokenMetadata};
 use ic_stable_structures::memory_manager::VirtualMemory;
 use ic_stable_structures::{DefaultMemoryImpl, StableBTreeMap};
@@ -8,7 +9,6 @@ use icrc_ledger_types::icrc1::account::{Account, Subaccount};
 
 use crate::app::memory::{LISTINGS_MEMORY_ID, MEMORY_MANAGER};
 use crate::constants::MINIMUM_LISTING_DURATION;
-use crate::did::{Listing, SwapError, SwapResult};
 use crate::storable::StorableNat;
 use crate::utils::{caller, canister_id, time};
 

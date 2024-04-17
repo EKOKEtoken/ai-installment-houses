@@ -1,13 +1,12 @@
 //! # DIP721 canister
 
 use candid::{candid_method, Nat, Principal};
-use did::{CanisterInitData, Listing, SwapResult};
+use did::swap::{CanisterInitData, Listing, SwapResult};
 use dip721_rs::TokenIdentifier;
 use ic_cdk_macros::{init, query, update};
 
 mod app;
 mod constants;
-pub mod did;
 mod inspect;
 mod storable;
 mod utils;

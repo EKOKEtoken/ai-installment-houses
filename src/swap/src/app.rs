@@ -11,6 +11,7 @@ mod storage;
 pub mod test_utils;
 
 use candid::{Nat, Principal};
+use did::swap::{CanisterInitData, Listing, SwapError, SwapResult};
 use dip721_rs::{TokenIdentifier, TokenMetadata};
 use icrc_ledger_types::icrc1::account::{Account, Subaccount};
 
@@ -18,7 +19,6 @@ use self::client::{Dip721Client, IcrcLedgerClient};
 use self::configuration::Configuration;
 use self::inspect::Inspect;
 use self::storage::Storage;
-use crate::did::{CanisterInitData, Listing, SwapError, SwapResult};
 use crate::utils::{caller, canister_id, cycles, time};
 
 #[derive(Default)]

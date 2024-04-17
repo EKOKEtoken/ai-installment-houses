@@ -103,15 +103,13 @@ impl Storable for Listing {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::app::test_utils::alice;
-    use crate::utils::time;
 
     #[test]
     fn test_listing_storable() {
         let listing = Listing {
-            seller: Account::from(alice()),
+            seller: Account::from(Principal::management_canister()),
             icp_price: Nat::from(100u64),
-            expiration_ns: time(),
+            expiration_ns: 123,
         };
         let bytes = listing.to_bytes();
         let decoded = Listing::from_bytes(bytes);
@@ -119,11 +117,11 @@ mod test {
 
         let listing = Listing {
             seller: Account {
-                owner: alice(),
+                owner: Principal::management_canister(),
                 subaccount: Some([1u8; 32]),
             },
             icp_price: Nat::from(100u64),
-            expiration_ns: time(),
+            expiration_ns: 123,
         };
         let bytes = listing.to_bytes();
         let decoded = Listing::from_bytes(bytes);

@@ -1,12 +1,11 @@
 //! # DIP721 canister
 
 use candid::{candid_method, Nat, Principal};
-use did::CanisterInitData;
+use did::ledger::CanisterInitData;
 use dip721_rs::Dip721 as _;
 use ic_cdk_macros::{init, post_upgrade, query, update};
 
 mod app;
-pub mod did;
 mod inspect;
 mod storable;
 mod utils;

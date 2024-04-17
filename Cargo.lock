@@ -279,6 +279,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "did"
+version = "0.1.0"
+dependencies = [
+ "candid",
+ "dip721-rs",
+ "ic-cdk",
+ "ic-stable-structures",
+ "icrc-ledger-types",
+ "num-bigint",
+ "num-traits",
+ "pretty_assertions",
+ "serde",
+ "thiserror",
+ "tokio",
+]
+
+[[package]]
 name = "diff"
 version = "0.1.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -673,6 +690,9 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "candid",
+ "did",
+ "dip721-rs",
+ "icrc-ledger-types",
  "pocket-ic",
  "pretty_assertions",
  "serde",
@@ -730,6 +750,7 @@ version = "0.1.0"
 dependencies = [
  "async-trait",
  "candid",
+ "did",
  "dip721-rs",
  "getrandom",
  "ic-cdk",
@@ -1394,6 +1415,7 @@ name = "swap"
 version = "0.1.0"
 dependencies = [
  "candid",
+ "did",
  "dip721-rs",
  "getrandom",
  "ic-cdk",

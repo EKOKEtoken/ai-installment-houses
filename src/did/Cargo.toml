@@ -1,28 +1,17 @@
 [package]
-name = "ledger"
+name = "did"
 version = { workspace = true }
 authors = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
 repository = { workspace = true }
 
-[[bin]]
-name = "ledger-did"
-path = "src/lib.rs"
-
-[lib]
-crate-type = ["cdylib"]
-
 [dependencies]
-async-trait = { workspace = true }
 candid = { workspace = true }
-did = { path = "../did" }
 dip721-rs = { workspace = true }
-getrandom = { workspace = true }
 ic-cdk = { workspace = true }
-ic-cdk-macros = { workspace = true }
 ic-stable-structures = { workspace = true }
-itertools = { workspace = true }
+icrc-ledger-types = { workspace = true }
 num-bigint = { workspace = true }
 num-traits = { workspace = true }
 serde = { workspace = true }

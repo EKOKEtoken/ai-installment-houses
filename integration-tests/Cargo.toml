@@ -9,6 +9,9 @@ repository = { workspace = true }
 [dependencies]
 anyhow = { workspace = true }
 candid = { workspace = true }
+did = { path = "../src/did" }
+dip721-rs = { workspace = true }
+icrc-ledger-types = { workspace = true }
 pocket-ic = "2"
 serde = { workspace = true }
 serde_bytes = { workspace = true }

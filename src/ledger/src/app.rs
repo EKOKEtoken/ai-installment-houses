@@ -12,6 +12,7 @@ mod test_utils;
 use async_trait::async_trait;
 use candid::{Nat, Principal};
 use configuration::Configuration;
+use did::ledger::CanisterInitData;
 use dip721_rs::{
     Dip721, GenericValue, Metadata, NftError, Stats, SupportedInterface, TokenIdentifier,
     TokenMetadata, TxEvent,
@@ -19,7 +20,6 @@ use dip721_rs::{
 
 pub use self::inspect::Inspect;
 use self::storage::{TokensStorage, TxHistory};
-use crate::did::CanisterInitData;
 use crate::utils::caller;
 
 #[derive(Default)]

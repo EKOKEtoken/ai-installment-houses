@@ -15,6 +15,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 candid = { workspace = true }
+did = { path = "../did" }
 dip721-rs = { workspace = true }
 getrandom = { workspace = true }
 ic-cdk = { workspace = true }
