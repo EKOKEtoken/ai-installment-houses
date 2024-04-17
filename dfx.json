@@ -1,0 +1,22 @@
+{
+  "canisters": {
+    "ledger": {
+      "candid": "src/ledger/ledger.did",
+      "package": "ledger",
+      "type": "rust"
+    },
+    "ekoke-erc20-swap": {
+      "candid": "src/swap/swap.did",
+      "package": "swap",
+      "type": "rust"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
