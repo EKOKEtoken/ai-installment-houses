@@ -25,6 +25,18 @@ export type GenericValue = { 'Nat64Content' : bigint } |
   { 'NestedContent' : Array<[string, GenericValue]> } |
   { 'Principal' : Principal } |
   { 'TextContent' : string };
+export interface HttpRequest {
+  'url' : string,
+  'method' : string,
+  'body' : Uint8Array | number[],
+  'headers' : Array<[string, string]>,
+}
+export interface HttpResponse {
+  'body' : Uint8Array | number[],
+  'headers' : Array<[string, string]>,
+  'upgrade' : [] | [boolean],
+  'status_code' : number,
+}
 export interface Metadata {
   'logo' : [] | [string],
   'name' : [] | [string],
@@ -125,6 +137,7 @@ export interface _SERVICE {
   'dip721_transaction' : ActorMethod<[bigint], Result_6>,
   'dip721_transfer' : ActorMethod<[Principal, bigint], Result>,
   'dip721_transfer_from' : ActorMethod<[Principal, Principal, bigint], Result>,
+  'http_request' : ActorMethod<[HttpRequest], HttpResponse>,
   'set_token_property' : ActorMethod<[bigint, string, GenericValue], Result_7>,
 }
 export declare const idlFactory: IDL.InterfaceFactory;

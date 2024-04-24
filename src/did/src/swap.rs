@@ -6,7 +6,7 @@ use ic_stable_structures::Storable;
 use icrc_ledger_types::icrc1::account::Account;
 use icrc_ledger_types::icrc1::transfer::TransferError;
 use icrc_ledger_types::icrc2::transfer_from::TransferFromError;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
 #[derive(Debug, CandidType, Deserialize, PartialEq)]
@@ -75,7 +75,7 @@ impl From<TransferFromError> for SwapError {
 }
 
 /// A listing of a nft.
-#[derive(Debug, CandidType, Deserialize, PartialEq, Clone)]
+#[derive(Debug, CandidType, Serialize, Deserialize, PartialEq, Clone)]
 pub struct Listing {
     /// The account of the nft seller.
     pub seller: Account,

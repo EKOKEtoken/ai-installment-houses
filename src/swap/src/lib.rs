@@ -1,12 +1,15 @@
 //! # DIP721 canister
 
 use candid::{candid_method, Nat, Principal};
+use did::http::{HttpRequest, HttpResponse};
 use did::swap::{CanisterInitData, Listing, SwapResult};
 use dip721_rs::TokenIdentifier;
+use http::HttpApi;
 use ic_cdk_macros::{init, query, update};
 
 mod app;
 mod constants;
+mod http;
 mod inspect;
 mod storable;
 mod utils;
@@ -83,6 +86,13 @@ pub async fn buy(
     subaccount: Option<Subaccount>,
 ) -> SwapResult<Nat> {
     App::buy(token_identifier, subaccount).await
+}
+
+// HTTP endpoint
+#[query]
+#[candid_method(query)]
+pub async fn http_request(req: HttpRequest) -> HttpResponse {
+    HttpApi::handle_http_request(req).await
 }
 
 #[allow(dead_code)]

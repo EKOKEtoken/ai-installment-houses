@@ -12,6 +12,18 @@ export interface CanisterInitData {
   'ledger_canister_id' : Principal,
   'sale_royalty' : bigint,
 }
+export interface HttpRequest {
+  'url' : string,
+  'method' : string,
+  'body' : Uint8Array | number[],
+  'headers' : Array<[string, string]>,
+}
+export interface HttpResponse {
+  'body' : Uint8Array | number[],
+  'headers' : Array<[string, string]>,
+  'upgrade' : [] | [boolean],
+  'status_code' : number,
+}
 export interface Listing {
   'expiration_ns' : bigint,
   'seller' : Account,
@@ -84,6 +96,7 @@ export interface _SERVICE {
   >,
   'buy' : ActorMethod<[bigint, [] | [Uint8Array | number[]]], Result_1>,
   'get_listing' : ActorMethod<[bigint], Result_2>,
+  'http_request' : ActorMethod<[HttpRequest], HttpResponse>,
   'list' : ActorMethod<
     [bigint, bigint, bigint, [] | [Uint8Array | number[]]],
     Result

@@ -79,6 +79,18 @@ export const idlFactory = ({ IDL }) => {
     'icp_price' : IDL.Nat,
   });
   const Result_2 = IDL.Variant({ 'Ok' : IDL.Opt(Listing), 'Err' : SwapError });
+  const HttpRequest = IDL.Record({
+    'url' : IDL.Text,
+    'method' : IDL.Text,
+    'body' : IDL.Vec(IDL.Nat8),
+    'headers' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Text)),
+  });
+  const HttpResponse = IDL.Record({
+    'body' : IDL.Vec(IDL.Nat8),
+    'headers' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Text)),
+    'upgrade' : IDL.Opt(IDL.Bool),
+    'status_code' : IDL.Nat16,
+  });
   return IDL.Service({
     'admin_cycles' : IDL.Func([], [IDL.Nat], ['query']),
     'admin_set_custodians' : IDL.Func([IDL.Vec(IDL.Principal)], [], []),
@@ -91,6 +103,7 @@ export const idlFactory = ({ IDL }) => {
       ),
     'buy' : IDL.Func([IDL.Nat, IDL.Opt(IDL.Vec(IDL.Nat8))], [Result_1], []),
     'get_listing' : IDL.Func([IDL.Nat], [Result_2], ['query']),
+    'http_request' : IDL.Func([HttpRequest], [HttpResponse], ['query']),
     'list' : IDL.Func(
         [IDL.Nat, IDL.Nat, IDL.Nat64, IDL.Opt(IDL.Vec(IDL.Nat8))],
         [Result],

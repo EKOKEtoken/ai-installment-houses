@@ -5,6 +5,18 @@ type CanisterInitData = record {
   ledger_canister_id : principal;
   sale_royalty : nat64;
 };
+type HttpRequest = record {
+  url : text;
+  method : text;
+  body : blob;
+  headers : vec record { text; text };
+};
+type HttpResponse = record {
+  body : blob;
+  headers : vec record { text; text };
+  upgrade : opt bool;
+  status_code : nat16;
+};
 type Listing = record {
   expiration_ns : nat64;
   seller : Account;
@@ -77,6 +89,7 @@ service : (CanisterInitData) -> {
   admin_withdraw : (principal, opt blob, nat) -> (Result);
   buy : (nat, opt blob) -> (Result_1);
   get_listing : (nat) -> (Result_2) query;
+  http_request : (HttpRequest) -> (HttpResponse) query;
   list : (nat, nat, nat64, opt blob) -> (Result);
   unlist : (nat) -> (Result);
 }

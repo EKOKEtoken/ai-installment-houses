@@ -23,6 +23,18 @@ type GenericValue = variant {
   Principal : principal;
   TextContent : text;
 };
+type HttpRequest = record {
+  url : text;
+  method : text;
+  body : blob;
+  headers : vec record { text; text };
+};
+type HttpResponse = record {
+  body : blob;
+  headers : vec record { text; text };
+  upgrade : opt bool;
+  status_code : nat16;
+};
 type Metadata = record {
   logo : opt text;
   name : opt text;
@@ -111,5 +123,6 @@ service : (CanisterInitData) -> {
   dip721_transaction : (nat) -> (Result_6) query;
   dip721_transfer : (principal, nat) -> (Result);
   dip721_transfer_from : (principal, principal, nat) -> (Result);
+  http_request : (HttpRequest) -> (HttpResponse) query;
   set_token_property : (nat, text, GenericValue) -> (Result_7);
 }

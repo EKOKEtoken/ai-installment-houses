@@ -93,6 +93,18 @@ export const idlFactory = ({ IDL }) => {
     'caller' : IDL.Principal,
   });
   const Result_6 = IDL.Variant({ 'Ok' : TxEvent, 'Err' : NftError });
+  const HttpRequest = IDL.Record({
+    'url' : IDL.Text,
+    'method' : IDL.Text,
+    'body' : IDL.Vec(IDL.Nat8),
+    'headers' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Text)),
+  });
+  const HttpResponse = IDL.Record({
+    'body' : IDL.Vec(IDL.Nat8),
+    'headers' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Text)),
+    'upgrade' : IDL.Opt(IDL.Bool),
+    'status_code' : IDL.Nat16,
+  });
   const Result_7 = IDL.Variant({ 'Ok' : IDL.Null, 'Err' : NftError });
   return IDL.Service({
     'dip721_approve' : IDL.Func([IDL.Principal, IDL.Nat], [Result], []),
@@ -162,6 +174,7 @@ export const idlFactory = ({ IDL }) => {
         [Result],
         [],
       ),
+    'http_request' : IDL.Func([HttpRequest], [HttpResponse], ['query']),
     'set_token_property' : IDL.Func(
         [IDL.Nat, IDL.Text, GenericValue],
         [Result_7],
