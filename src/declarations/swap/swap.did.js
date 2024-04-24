@@ -65,7 +65,7 @@ export const idlFactory = ({ IDL }) => {
     'ListingExpired' : IDL.Null,
     'CanisterIsNotOperator' : IDL.Null,
     'AllowanceExpired' : IDL.Null,
-    'CanisterCall' : RejectionCode,
+    'CanisterCall' : IDL.Tuple(RejectionCode, IDL.Text),
   });
   const Result = IDL.Variant({ 'Ok' : IDL.Null, 'Err' : SwapError });
   const Result_1 = IDL.Variant({ 'Ok' : IDL.Nat, 'Err' : SwapError });

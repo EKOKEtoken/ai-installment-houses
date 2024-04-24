@@ -1,5 +1,5 @@
 use candid::Principal;
-use icrc_ledger_types::icrc1::account::{Account, DEFAULT_SUBACCOUNT};
+use icrc_ledger_types::icrc1::account::Account;
 
 pub fn alice() -> Principal {
     Principal::from_text("be2us-64aaa-aaaaa-qaabq-cai").unwrap()
@@ -8,7 +8,7 @@ pub fn alice() -> Principal {
 pub fn alice_account() -> Account {
     Account {
         owner: alice(),
-        subaccount: Some(*DEFAULT_SUBACCOUNT),
+        subaccount: None,
     }
 }
 

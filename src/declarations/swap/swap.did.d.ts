@@ -51,7 +51,7 @@ export type SwapError = { 'Nft' : NftError } |
   { 'ListingExpired' : null } |
   { 'CanisterIsNotOperator' : null } |
   { 'AllowanceExpired' : null } |
-  { 'CanisterCall' : RejectionCode };
+  { 'CanisterCall' : [RejectionCode, string] };
 export type TransferError = {
     'GenericError' : { 'message' : string, 'error_code' : bigint }
   } |

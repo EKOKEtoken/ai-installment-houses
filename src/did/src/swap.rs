@@ -52,13 +52,13 @@ pub enum SwapError {
     IcrcTransfer(TransferError),
     #[error("ICRC transfer from error: {0:?}")]
     IcrcTransferFrom(TransferFromError),
-    #[error("canister call error: {0:?}")]
-    CanisterCall(RejectionCode),
+    #[error("canister call error: {0:?}: {1}")]
+    CanisterCall(RejectionCode, String),
 }
 
-impl From<RejectionCode> for SwapError {
-    fn from(err: RejectionCode) -> Self {
-        Self::CanisterCall(err)
+impl From<(RejectionCode, String)> for SwapError {
+    fn from((code, msg): (RejectionCode, String)) -> Self {
+        Self::CanisterCall(code, msg)
     }
 }
 

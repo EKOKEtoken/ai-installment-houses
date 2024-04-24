@@ -1,5 +1,6 @@
 pub mod actor;
 pub mod client;
+mod helper;
 mod wasm;
 
 use std::io::Read as _;
@@ -10,6 +11,7 @@ use candid::{CandidType, Decode, Encode, Nat, Principal};
 use did::ledger::CanisterInitData as LedgerInitData;
 use did::swap::CanisterInitData as SwapInitData;
 use dip721_rs::SupportedInterface;
+pub use helper::Helper;
 use icrc_ledger_types::icrc1::account::Account;
 use pocket_ic::{PocketIc, WasmResult};
 use serde::de::DeserializeOwned;
@@ -19,6 +21,8 @@ use crate::wasm::Icrc2InitArgs;
 
 const DEFAULT_CYCLES: u128 = 2_000_000_000_000_000;
 pub const SWAP_INIT_BALANCE: u64 = 1_000_000_000_000_000;
+pub const SWAP_DEFAULT_ROYALTY: u64 = 5;
+pub const ICP_LEDGER_FEE: u64 = 10;
 
 /// Test environment
 pub struct TestEnv {
@@ -133,7 +137,7 @@ impl TestEnv {
             custodians: vec![admin()],
             ledger_canister_id,
             icp_ledger_canister_id,
-            sale_royalty: 5,
+            sale_royalty: SWAP_DEFAULT_ROYALTY,
         };
         let init_arg = Encode!(&init_arg).unwrap();
 
@@ -154,7 +158,7 @@ impl TestEnv {
             name: name.to_string(),
             symbol: symbol.to_string(),
             decimals,
-            fee: 10,
+            fee: ICP_LEDGER_FEE,
             logo: "https://ic0.app/img/logo.png".to_string(),
             minting_account: actor::minting_account(),
             total_supply: Nat::from(1_000_000_000_000_000_000_u64),

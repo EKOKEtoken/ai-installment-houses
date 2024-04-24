@@ -8,7 +8,7 @@ use ic_stable_structures::{DefaultMemoryImpl, StableBTreeMap};
 use icrc_ledger_types::icrc1::account::{Account, Subaccount};
 
 use crate::app::memory::{LISTINGS_MEMORY_ID, MEMORY_MANAGER};
-use crate::constants::MINIMUM_LISTING_DURATION;
+use crate::constants::MINIMUM_LISTING_DURATION_NS;
 use crate::storable::StorableNat;
 use crate::utils::{caller, canister_id, time};
 
@@ -40,7 +40,7 @@ impl Storage {
             return Err(SwapError::CanisterIsNotOperator);
         }
         // check expiration
-        if expiration_ns < time() + MINIMUM_LISTING_DURATION {
+        if expiration_ns < time() + MINIMUM_LISTING_DURATION_NS {
             return Err(SwapError::ExpirationTooEarly);
         }
         LISTINGS.with_borrow_mut(|listings| {
@@ -95,7 +95,7 @@ impl Storage {
     pub fn get_listing(token: TokenMetadata) -> Option<Listing> {
         LISTINGS.with_borrow(|listings| {
             match listings.get(&StorableNat::from(token.token_identifier.clone())) {
-                Some(listing) if Self::__is_listed(&listing, &token) => Some(listing.clone()),
+                Some(listing) if Self::is_listed(&listing, &token) => Some(listing.clone()),
                 Some(_) => None,
                 None => None,
             }
@@ -111,7 +111,7 @@ impl Storage {
     /// - The token is still owned by the listing owner.
     /// - The listing has not expired.
     /// - The canister is the operator of the token.
-    fn __is_listed(listing: &Listing, token: &TokenMetadata) -> bool {
+    fn is_listed(listing: &Listing, token: &TokenMetadata) -> bool {
         token.operator == Some(canister_id())
             && Some(listing.seller.owner) == token.owner
             && listing.expiration_ns > time()
@@ -172,7 +172,7 @@ mod test {
             token.operator = Some(canister_id());
         });
         let icp_price = Nat::from(100u64);
-        let expiration_ns = time() + MINIMUM_LISTING_DURATION - 60_000_000_000;
+        let expiration_ns = time() + MINIMUM_LISTING_DURATION_NS - 60_000_000_000;
 
         assert_eq!(
             Storage::list(token.clone(), icp_price, expiration_ns, None),

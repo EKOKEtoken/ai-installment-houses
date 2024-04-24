@@ -65,7 +65,7 @@ impl IcrcLedgerClient {
         }
         #[cfg(target_arch = "wasm32")]
         {
-            let args = crate::icrc1::transfer::TransferArg {
+            let args = icrc_ledger_types::icrc1::transfer::TransferArg {
                 to,
                 from_subaccount: None,
                 fee: None,
@@ -108,7 +108,7 @@ impl IcrcLedgerClient {
         }
         #[cfg(target_arch = "wasm32")]
         {
-            let args = crate::icrc2::allowance::AllowanceArgs { spender, account };
+            let args = icrc_ledger_types::icrc2::allowance::AllowanceArgs { spender, account };
             let allowance: (Allowance,) =
                 ic_cdk::call(self.principal, "icrc2_allowance", (args,)).await?;
 
@@ -131,7 +131,7 @@ impl IcrcLedgerClient {
         }
         #[cfg(target_arch = "wasm32")]
         {
-            let args = crate::icrc2::transfer_from::TransferFromArgs {
+            let args = icrc_ledger_types::icrc2::transfer_from::TransferFromArgs {
                 spender_subaccount,
                 from,
                 to,

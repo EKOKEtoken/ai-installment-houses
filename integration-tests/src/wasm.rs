@@ -26,7 +26,7 @@ impl Canister {
     pub fn as_path(&self) -> &'static Path {
         match self {
             Canister::Ledger => Path::new("../.dfx/local/canisters/ledger/ledger.wasm"),
-            Canister::Swap => Path::new("../.dfx/local/canisters/Swap/Swap.wasm"),
+            Canister::Swap => Path::new("../.dfx/local/canisters/swap/swap.wasm"),
             Canister::Icrc2 => Path::new("../assets/wasm/icrc2-template-canister.wasm"),
         }
     }

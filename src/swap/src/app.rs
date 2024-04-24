@@ -89,7 +89,7 @@ impl App {
                 amount,
             )
             .await
-            .map_err(|(code, _)| SwapError::from(code))??;
+            .map_err(|(code, msg)| SwapError::from((code, msg)))??;
 
         Ok(())
     }
@@ -142,15 +142,15 @@ impl App {
         let caller_balance = icp_ledger_client
             .icrc1_balance_of(caller_account)
             .await
-            .map_err(|(code, _)| SwapError::from(code))?;
+            .map_err(|(code, msg)| SwapError::from((code, msg)))?;
         let caller_allowance = icp_ledger_client
             .icrc2_allowance(Self::canister_account(), caller_account)
             .await
-            .map_err(|(code, _)| SwapError::from(code))?;
+            .map_err(|(code, msg)| SwapError::from((code, msg)))?;
         let icrc_fee = icp_ledger_client
             .icrc1_fee()
             .await
-            .map_err(|(code, _)| SwapError::from(code))?;
+            .map_err(|(code, msg)| SwapError::from((code, msg)))?;
 
         // check if caller has enough balance and allowance
         let total_amount_to_pay = icp_price.clone() + icrc_fee.clone() + icrc_fee;
@@ -198,7 +198,7 @@ impl App {
         let tx_id = dip721_client
             .dip721_transfer_from(seller_account.owner, caller(), &token_identifier)
             .await
-            .map_err(|(code, _)| SwapError::from(code))??;
+            .map_err(|(code, msg)| SwapError::from((code, msg)))??;
 
         // unlist
         Storage::remove(token.token_identifier);
@@ -212,7 +212,7 @@ impl App {
         client
             .dip721_token_metadata(token_identifier)
             .await
-            .map_err(|(code, _)| SwapError::from(code))?
+            .map_err(|(code, msg)| SwapError::from((code, msg)))?
             .map_err(|e| e.into())
     }
 
@@ -226,7 +226,7 @@ impl App {
         client
             .icrc2_transfer_from(None, from, to, amount)
             .await
-            .map_err(|(code, _)| SwapError::from(code))?
+            .map_err(|(code, msg)| SwapError::from((code, msg)))?
             .map_err(|e| e.into())
     }
 

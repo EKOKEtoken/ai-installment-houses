@@ -46,7 +46,7 @@ type SwapError = variant {
   ListingExpired;
   CanisterIsNotOperator;
   AllowanceExpired;
-  CanisterCall : RejectionCode;
+  CanisterCall : record { RejectionCode; text };
 };
 type TransferError = variant {
   GenericError : record { message : text; error_code : nat };

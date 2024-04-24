@@ -61,7 +61,12 @@ impl<'a> SwapClient<'a> {
         token: TokenIdentifier,
     ) -> SwapResult<Option<Listing>> {
         self.env
-            .query(self.env.swap_id, caller, "list", Encode!(&token).unwrap())
+            .query(
+                self.env.swap_id,
+                caller,
+                "get_listing",
+                Encode!(&token).unwrap(),
+            )
             .expect("update failed")
     }
 
@@ -70,7 +75,7 @@ impl<'a> SwapClient<'a> {
         caller: Principal,
         token_identifier: TokenIdentifier,
         subaccount: Option<Subaccount>,
-    ) -> SwapResult<()> {
+    ) -> SwapResult<Nat> {
         self.env
             .update(
                 self.env.swap_id,

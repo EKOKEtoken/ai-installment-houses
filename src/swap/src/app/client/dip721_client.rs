@@ -68,7 +68,7 @@ impl Dip721Client {
             let res: (Result<Nat, NftError>,) = ic_cdk::call(
                 self.principal,
                 "dip721_transfer_from",
-                (token_identifier, from, to),
+                (from, to, token_identifier),
             )
             .await?;
 
