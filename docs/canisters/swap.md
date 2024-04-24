@@ -3,6 +3,8 @@
 - [Swap Canister](#swap-canister)
   - [Introduction](#introduction)
   - [API](#api)
+    - [HTTP Methods](#http-methods)
+      - [Methods](#methods)
     - [list](#list)
     - [unlist](#unlist)
     - [get\_listing](#get_listing)
@@ -17,6 +19,30 @@ The canister provides a simple api to list an NFT for sale at a given ICP price 
 ## API
 
 See [DID file](../../src/swap/swap.did)
+
+### HTTP Methods
+
+This list contains the http available methods with its parameters and response.
+
+```json
+{
+  "method": "methodName",
+  "params": {...}
+}
+```
+
+#### Methods
+
+- `get_listing`
+
+    ```json
+    {
+      "method": "dip721_token_metadata",
+      "params": {
+        "id": 1
+      }
+    }
+    ```
 
 ### list
 

@@ -4,6 +4,7 @@
   - [Introduction](#introduction)
   - [API](#api)
     - [HTTP Methods](#http-methods)
+      - [Methods](#methods)
   - [Token Metadata](#token-metadata)
 
 ## Introduction
@@ -20,7 +21,32 @@ See [DID file](../../src/ledger/ledger.did)
 
 This list contains the http available methods with its parameters and response.
 
-...
+```json
+{
+  "method": "methodName",
+  "params": {...}
+}
+```
+
+#### Methods
+
+- `dip721_metadata`
+- `dip721_name`
+- `dip721_symbol`
+- `dip721_logo`
+- `dip721_total_unique_holders`
+- `dip721_token_metadata`
+
+    ```json
+    {
+      "method": "dip721_token_metadata",
+      "params": {
+        "id": 1
+      }
+    }
+    ```
+
+- `dip721_total_supply`
 
 ## Token Metadata
 
