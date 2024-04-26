@@ -1,5 +1,11 @@
 [workspace]
-members = ["integration-tests", "src/did", "src/ledger", "src/swap"]
+members = [
+  "integration-tests",
+  "src/did",
+  "src/ledger",
+  "src/swap",
+  "utils/minter",
+]
 resolver = "2"
 
 [workspace.package]
@@ -12,12 +18,16 @@ version = "0.1.0"
 
 [workspace.dependencies]
 anyhow = "1"
+argh = "0.1"
 async-trait = "0.1"
+base64 = "0.22"
 candid = "0.10"
+csv = "1"
 dip721-rs = "0.2"
 getrandom = { version = "0.2", features = ["custom"] }
 ic-cdk = "0.12"
 ic-cdk-macros = "0.8"
+ic-agent = "0.34"
 ic-stable-structures = "0.6"
 icrc-ledger-types = "0.1"
 itertools = "0.12"
@@ -27,6 +37,7 @@ serde = { version = "1", features = ["derive"] }
 serde_bytes = "0.11"
 serde_json = "1"
 thiserror = "1.0"
+tokio = { version = "1", features = ["full"] }
 
 [profile.dev]
 debug = false

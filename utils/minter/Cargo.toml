@@ -1,0 +1,27 @@
+[package]
+name = "minter"
+version = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+
+[[bin]]
+name = "minter"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = { workspace = true }
+argh = { workspace = true }
+base64 = { workspace = true }
+candid = { workspace = true }
+csv = { workspace = true }
+did = { path = "../../src/did" }
+dip721-rs = { workspace = true }
+ic-agent = { workspace = true }
+serde = { workspace = true }
+tokio = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions = "1"
+tempfile = "3"
