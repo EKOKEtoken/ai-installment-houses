@@ -1,0 +1,24 @@
+
+.parcel-cache/
+coverage/
+!dist/.ic-assets.json
+!dist/.well-known
+dist/*
+node_modules/
+*.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+dist/
+
+parcel-bundle-reports/
+
+.dfx/
+.env
