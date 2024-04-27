@@ -1,8 +1,12 @@
+mod search;
+
 use candid::Nat;
 use did::http::{HttpRequest, HttpResponse};
 use dip721_rs::Dip721;
 use serde::Deserialize;
 
+use self::search::{SearchParamsReq, SearchParamsSortBy};
+use crate::app::storage::with_tokens;
 use crate::app::App;
 
 #[derive(Deserialize)]
@@ -31,6 +35,7 @@ impl HttpApi {
         };
 
         match method.as_str() {
+            "search" => Self::search(req),
             "dip721_metadata" => Self::dip721_metadata(),
             "dip721_name" => Self::dip721_name(),
             "dip721_symbol" => Self::dip721_symbol(),
@@ -40,6 +45,37 @@ impl HttpApi {
             "dip721_total_supply" => Self::dip721_total_supply(),
             _ => HttpResponse::bad_request("unknown method".to_string()),
         }
+    }
+
+    fn search(req: HttpRequest) -> HttpResponse {
+        let params = match req.decode_body::<SearchParamsReq>() {
+            Ok(request) => request,
+            Err(response) => return response,
+        };
+        let tokens = with_tokens(|tokens| {
+            let mut tokens = tokens
+                .iter()
+                .filter_map(|(_, metadata)| params.filter_tokens(metadata))
+                .collect::<Vec<_>>();
+
+            // sort
+            if let Some(sort_by) = params.sort_by {
+                match sort_by {
+                    SearchParamsSortBy::Id => {
+                        tokens.sort_by_key(|token| token.token_identifier.clone())
+                    }
+                    SearchParamsSortBy::MintedAt => tokens.sort_by_key(|token| token.minted_at),
+                }
+            }
+            // limit and offset
+            tokens
+                .into_iter()
+                .skip(params.offset)
+                .take(params.limit)
+                .collect::<Vec<_>>()
+        });
+
+        HttpResponse::ok(tokens)
     }
 
     fn dip721_metadata() -> HttpResponse {

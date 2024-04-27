@@ -52,7 +52,7 @@ where
     })
 }
 
-fn with_tokens<T, F>(f: F) -> T
+pub fn with_tokens<T, F>(f: F) -> T
 where
     F: FnOnce(&BTreeMap<StorableNat, TokenMetadata, VirtualMemory<DefaultMemoryImpl>>) -> T,
 {

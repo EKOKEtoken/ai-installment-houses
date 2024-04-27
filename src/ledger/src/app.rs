@@ -7,7 +7,7 @@ mod inspect;
 mod memory;
 pub mod storage;
 #[cfg(test)]
-mod test_utils;
+pub mod test_utils;
 
 use async_trait::async_trait;
 use candid::{Nat, Principal};
