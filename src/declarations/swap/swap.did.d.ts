@@ -12,6 +12,23 @@ export interface CanisterInitData {
   'ledger_canister_id' : Principal,
   'sale_royalty' : bigint,
 }
+export type GenericValue = { 'Nat64Content' : bigint } |
+  { 'Nat32Content' : number } |
+  { 'BoolContent' : boolean } |
+  { 'Nat8Content' : number } |
+  { 'Int64Content' : bigint } |
+  { 'IntContent' : bigint } |
+  { 'NatContent' : bigint } |
+  { 'Nat16Content' : number } |
+  { 'Int32Content' : number } |
+  { 'Int8Content' : number } |
+  { 'FloatContent' : number } |
+  { 'Int16Content' : number } |
+  { 'BlobContent' : Uint8Array | number[] } |
+  { 'NestedContent' : Vec } |
+  { 'Principal' : Principal } |
+  { 'TextContent' : string };
+export interface GetListing { 'listing' : Listing, 'metadata' : TokenMetadata }
 export interface HttpRequest {
   'url' : string,
   'method' : string,
@@ -50,7 +67,7 @@ export type Result = { 'Ok' : null } |
   { 'Err' : SwapError };
 export type Result_1 = { 'Ok' : bigint } |
   { 'Err' : SwapError };
-export type Result_2 = { 'Ok' : [] | [Listing] } |
+export type Result_2 = { 'Ok' : [] | [GetListing] } |
   { 'Err' : SwapError };
 export type SwapError = { 'Nft' : NftError } |
   { 'IcrcTransferFrom' : TransferFromError } |
@@ -64,6 +81,21 @@ export type SwapError = { 'Nft' : NftError } |
   { 'CanisterIsNotOperator' : null } |
   { 'AllowanceExpired' : null } |
   { 'CanisterCall' : [RejectionCode, string] };
+export interface TokenMetadata {
+  'transferred_at' : [] | [bigint],
+  'transferred_by' : [] | [Principal],
+  'owner' : [] | [Principal],
+  'operator' : [] | [Principal],
+  'approved_at' : [] | [bigint],
+  'approved_by' : [] | [Principal],
+  'properties' : Array<[string, GenericValue]>,
+  'is_burned' : boolean,
+  'token_identifier' : bigint,
+  'burned_at' : [] | [bigint],
+  'burned_by' : [] | [Principal],
+  'minted_at' : bigint,
+  'minted_by' : Principal,
+}
 export type TransferError = {
     'GenericError' : { 'message' : string, 'error_code' : bigint }
   } |
@@ -85,6 +117,27 @@ export type TransferFromError = {
   { 'CreatedInFuture' : { 'ledger_time' : bigint } } |
   { 'TooOld' : null } |
   { 'InsufficientFunds' : { 'balance' : bigint } };
+export type Vec = Array<
+  [
+    string,
+    { 'Nat64Content' : bigint } |
+      { 'Nat32Content' : number } |
+      { 'BoolContent' : boolean } |
+      { 'Nat8Content' : number } |
+      { 'Int64Content' : bigint } |
+      { 'IntContent' : bigint } |
+      { 'NatContent' : bigint } |
+      { 'Nat16Content' : number } |
+      { 'Int32Content' : number } |
+      { 'Int8Content' : number } |
+      { 'FloatContent' : number } |
+      { 'Int16Content' : number } |
+      { 'BlobContent' : Uint8Array | number[] } |
+      { 'NestedContent' : Vec } |
+      { 'Principal' : Principal } |
+      { 'TextContent' : string },
+  ]
+>;
 export interface _SERVICE {
   'admin_cycles' : ActorMethod<[], bigint>,
   'admin_set_custodians' : ActorMethod<[Array<Principal>], undefined>,

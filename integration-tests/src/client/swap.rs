@@ -1,5 +1,5 @@
 use candid::{Encode, Nat, Principal};
-use did::swap::{Listing, SwapResult};
+use did::swap::{GetListing, SwapResult};
 use dip721_rs::TokenIdentifier;
 use icrc_ledger_types::icrc1::account::Subaccount;
 
@@ -59,7 +59,7 @@ impl<'a> SwapClient<'a> {
         &self,
         caller: Principal,
         token: TokenIdentifier,
-    ) -> SwapResult<Option<Listing>> {
+    ) -> SwapResult<Option<GetListing>> {
         self.env
             .query(
                 self.env.swap_id,

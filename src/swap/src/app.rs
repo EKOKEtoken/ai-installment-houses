@@ -11,7 +11,7 @@ mod storage;
 pub mod test_utils;
 
 use candid::{Nat, Principal};
-use did::swap::{CanisterInitData, Listing, SwapError, SwapResult};
+use did::swap::{CanisterInitData, GetListing, SwapError, SwapResult};
 use dip721_rs::{TokenIdentifier, TokenMetadata};
 use icrc_ledger_types::icrc1::account::{Account, Subaccount};
 
@@ -112,9 +112,13 @@ impl App {
     }
 
     /// Get listing
-    pub async fn get_listing(token_identifier: TokenIdentifier) -> SwapResult<Option<Listing>> {
+    pub async fn get_listing(token_identifier: TokenIdentifier) -> SwapResult<Option<GetListing>> {
         let token = Self::get_token_metadata(&token_identifier).await?;
-        Ok(Storage::get_listing(token))
+        let listing = Storage::get_listing(&token);
+        Ok(listing.map(|listing| GetListing {
+            metadata: token,
+            listing,
+        }))
     }
 
     /// Buy a token
@@ -126,7 +130,7 @@ impl App {
     ) -> SwapResult<Nat> {
         // get listing
         let token = Self::get_token_metadata(&token_identifier).await?;
-        let listing = Storage::get_listing(token.clone()).ok_or(SwapError::NoSuchListing)?;
+        let listing = Storage::get_listing(&token).ok_or(SwapError::NoSuchListing)?;
 
         // get amounts
         let icp_price = listing.icp_price;
@@ -312,9 +316,9 @@ mod test {
 
         // get listing
         let listing = App::get_listing(token_id).await.unwrap().unwrap();
-        assert_eq!(listing.icp_price, Nat::from(10_000u64));
+        assert_eq!(listing.listing.icp_price, Nat::from(10_000u64));
         assert_eq!(
-            listing.seller,
+            listing.listing.seller,
             Account {
                 owner: caller(),
                 subaccount: Some([1; 32])

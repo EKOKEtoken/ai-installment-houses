@@ -54,11 +54,12 @@ impl HttpApi {
             .map(|listing| {
                 let listing = listing.map(|listing| {
                     serde_json::json!({
-                        "id": params.id,
-                        "icpPrice": listing.icp_price,
-                        "seller": listing.seller,
-                        "expirationNs": listing.expiration_ns,
-
+                        "listing": {
+                            "seller": listing.listing.seller,
+                            "icpPrice": listing.listing.icp_price,
+                            "expirationNs": listing.listing.expiration_ns,
+                        },
+                        "metadata": listing.metadata,
                     })
                 });
 
@@ -87,10 +88,12 @@ impl HttpApi {
             if let Some(listing) = App::get_listing(id.clone()).await.unwrap() {
                 listings.push(serde_json::json!(
                     {
-                        "id": id,
-                        "icpPrice": listing.icp_price,
-                        "seller": listing.seller,
-                        "expirationNs": listing.expiration_ns,
+                        "listing": {
+                            "icpPrice": listing.listing.icp_price,
+                            "seller": listing.listing.seller,
+                            "expirationNs": listing.listing.expiration_ns,
+                        },
+                        "metadata": listing.metadata,
                     }
                 ));
             }

@@ -37,9 +37,9 @@ fn test_should_list_nft_for_sale() {
         .unwrap()
         .unwrap();
 
-    assert_eq!(listing.seller, alice_account());
-    assert_eq!(listing.expiration_ns, expiration_ns);
-    assert_eq!(listing.icp_price, icp_price);
+    assert_eq!(listing.listing.seller, alice_account());
+    assert_eq!(listing.listing.expiration_ns, expiration_ns);
+    assert_eq!(listing.listing.icp_price, icp_price);
 }
 
 #[test]

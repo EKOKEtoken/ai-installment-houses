@@ -92,7 +92,7 @@ impl Storage {
     }
 
     /// Given a DIP721 token, returns its listing if it is still valid.
-    pub fn get_listing(token: TokenMetadata) -> Option<Listing> {
+    pub fn get_listing(token: &TokenMetadata) -> Option<Listing> {
         LISTINGS.with_borrow(|listings| {
             match listings.get(&StorableNat::from(token.token_identifier.clone())) {
                 Some(listing) if Self::is_listed(&listing, &token) => Some(listing.clone()),
@@ -232,7 +232,7 @@ mod test {
         )
         .is_ok());
 
-        let listing = Storage::get_listing(token.clone()).unwrap();
+        let listing = Storage::get_listing(&token).unwrap();
         assert_eq!(
             listing,
             Listing {
@@ -259,7 +259,7 @@ mod test {
         let mut token = token.clone();
         token.owner = Some(bob());
 
-        assert!(Storage::get_listing(token.clone()).is_none());
+        assert!(Storage::get_listing(&token).is_none());
     }
 
     #[test]
@@ -275,7 +275,7 @@ mod test {
         let mut token = token.clone();
         token.operator = Some(bob());
 
-        assert!(Storage::get_listing(token.clone()).is_none());
+        assert!(Storage::get_listing(&token).is_none());
     }
 
     #[test]
@@ -295,6 +295,6 @@ mod test {
             listings.insert(key, listing);
         });
 
-        assert!(Storage::get_listing(token.clone()).is_none());
+        assert!(Storage::get_listing(&token).is_none());
     }
 }

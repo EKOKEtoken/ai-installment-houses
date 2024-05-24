@@ -1,5 +1,5 @@
 use candid::{CandidType, Decode, Encode, Nat, Principal};
-use dip721_rs::NftError;
+use dip721_rs::{NftError, TokenMetadata};
 use ic_cdk::api::call::RejectionCode;
 use ic_stable_structures::storable::Bound;
 use ic_stable_structures::Storable;
@@ -72,6 +72,12 @@ impl From<TransferFromError> for SwapError {
     fn from(err: TransferFromError) -> Self {
         Self::IcrcTransferFrom(err)
     }
+}
+
+#[derive(Debug, CandidType, Serialize, Deserialize, PartialEq, Clone)]
+pub struct GetListing {
+    pub metadata: TokenMetadata,
+    pub listing: Listing,
 }
 
 /// A listing of a nft.

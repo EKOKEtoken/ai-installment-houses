@@ -8,20 +8,6 @@ const Container = (props: React.HTMLProps<HTMLDivElement>) => {
   );
 };
 
-const PageContent = (props: React.HTMLProps<HTMLDivElement>) => {
-  return (
-    <main
-      id={props.id}
-      itemProp={props.itemProp}
-      itemScope={props.itemScope}
-      itemType={props.itemType}
-      className={`${props.className} w-9/12 sm:w-11/12 mx-auto`}
-    >
-      {props.children}
-    </main>
-  );
-};
-
 const Flex = (props: React.HTMLProps<HTMLDivElement>) => {
   return (
     <div
@@ -96,5 +82,4 @@ export default {
   FlexCols,
   FlexRow,
   FlexResponsiveRow,
-  PageContent,
 };

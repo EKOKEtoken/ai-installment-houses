@@ -24,15 +24,15 @@ fn test_should_buy_nft() {
         .get_listing(alice(), my_nft.clone())
         .unwrap()
         .unwrap();
-    let sale_royalty = listing.icp_price.clone() * SWAP_DEFAULT_ROYALTY / 100u64;
-    let icp_price_wno_royalty = listing.icp_price.clone() - sale_royalty.clone();
+    let sale_royalty = listing.listing.icp_price.clone() * SWAP_DEFAULT_ROYALTY / 100u64;
+    let icp_price_wno_royalty = listing.listing.icp_price.clone() - sale_royalty.clone();
 
     // bob buys the nft; first give to the canister the approval to spend icp_price
     assert!(icp_ledger_client
         .icrc2_approve(
             bob(),
             Account::from(env.swap_id),
-            listing.icp_price.clone() + ICP_LEDGER_FEE + ICP_LEDGER_FEE,
+            listing.listing.icp_price.clone() + ICP_LEDGER_FEE + ICP_LEDGER_FEE,
             bob_account().subaccount
         )
         .is_ok());
@@ -51,7 +51,11 @@ fn test_should_buy_nft() {
     );
     assert_eq!(
         bob_final_balance,
-        bob_init_balance - listing.icp_price - ICP_LEDGER_FEE - ICP_LEDGER_FEE - ICP_LEDGER_FEE // 3 because of approve
+        bob_init_balance
+            - listing.listing.icp_price
+            - ICP_LEDGER_FEE
+            - ICP_LEDGER_FEE
+            - ICP_LEDGER_FEE // 3 because of approve
     );
     assert_eq!(swap_final_balance, swap_init_balance + sale_royalty);
 
@@ -89,12 +93,12 @@ fn test_should_not_buy_nft_if_not_enough_balance() {
         .icrc2_approve(
             bob(),
             Account::from(env.swap_id),
-            listing.icp_price.clone() + ICP_LEDGER_FEE + ICP_LEDGER_FEE,
+            listing.listing.icp_price.clone() + ICP_LEDGER_FEE + ICP_LEDGER_FEE,
             bob_account().subaccount
         )
         .is_ok());
     // transfer bob balance to alice
-    let amt_to_transfer = bob_init_balance - listing.icp_price - 1_u64;
+    let amt_to_transfer = bob_init_balance - listing.listing.icp_price - 1_u64;
 
     assert!(icp_ledger_client
         .icrc1_transfer(

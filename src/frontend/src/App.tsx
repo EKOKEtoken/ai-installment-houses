@@ -11,6 +11,7 @@ import AppContextProvider, {
   useAppContext,
 } from './js/components/App/AppContext';
 import Home from './js/pages/Home';
+import Header from './js/components/Header';
 
 const App = () => (
   <AppContextProvider>
@@ -34,6 +35,7 @@ const AppLayoutWrapper = () => {
   return (
     <IcWalletProvider provider={icWallet}>
       <SeoEngine />
+      <Header />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />

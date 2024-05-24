@@ -2,7 +2,7 @@
 
 use candid::{candid_method, Nat, Principal};
 use did::http::{HttpRequest, HttpResponse};
-use did::swap::{CanisterInitData, Listing, SwapResult};
+use did::swap::{CanisterInitData, GetListing, SwapResult};
 use dip721_rs::TokenIdentifier;
 use http::HttpApi;
 use ic_cdk_macros::{init, query, update};
@@ -75,7 +75,7 @@ pub async fn unlist(token_identifier: TokenIdentifier) -> SwapResult<()> {
 
 #[query]
 #[candid_method(query)]
-pub async fn get_listing(token_identifier: TokenIdentifier) -> SwapResult<Option<Listing>> {
+pub async fn get_listing(token_identifier: TokenIdentifier) -> SwapResult<Option<GetListing>> {
     App::get_listing(token_identifier).await
 }
 
