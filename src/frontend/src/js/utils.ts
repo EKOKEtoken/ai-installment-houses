@@ -5,13 +5,22 @@ import { ApiTokenMetadata } from './data/api';
 
 const DECIMALS = 8;
 
-export const e8sToIcp = (e8s: bigint): string => {
+export const e8sToIcpStr = (e8s: bigint | number): string => {
   // put comma in `decimals` position
   const supplyStr = e8s.toString();
   const arr = supplyStr.split('');
-  arr.splice(arr.length - DECIMALS, 0, '.');
+  // check if supply is less than `DECIMALS`
+  if (arr.length <= DECIMALS) {
+    arr.splice(arr.length - DECIMALS, 0, '');
+  } else {
+    arr.splice(arr.length - DECIMALS, 0, '.');
+  }
 
   return arr.join('');
+};
+
+export const e8sToIcp = (e8s: bigint): bigint => {
+  return e8s / 10n ** BigInt(DECIMALS);
 };
 
 export const validatePrincipal = (

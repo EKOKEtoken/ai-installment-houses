@@ -156,6 +156,7 @@ This list contains the http available methods with its parameters and response.
 
 Each NFT has the following properties, following the DIP721 standard.
 
+- title: description title for house
 - country: ISO3166 encoded country name
 - city
 - address
@@ -167,3 +168,4 @@ Each NFT has the following properties, following the DIP721 standard.
 - rooms
 - bathrooms
 - price
+- thumbnail: base64 encoded

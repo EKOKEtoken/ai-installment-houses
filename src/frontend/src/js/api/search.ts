@@ -29,6 +29,7 @@ const mock = (params: SearchParams): ApiTokenMetadata[] => {
       owner: 'rwlgt-iiaaa-aaaaa-aaaaa-cai',
       is_burned: false,
       properties: [
+        ['title', { TextContent: 'Trilocale in via Marangoni' }],
         ['country', { TextContent: 'IT' }],
         ['city', { TextContent: 'Udine' }],
         ['address', { TextContent: 'Via Antonio Marangoni' }],
@@ -40,6 +41,7 @@ const mock = (params: SearchParams): ApiTokenMetadata[] => {
         ['rooms', { TextContent: '3' }],
         ['bathrooms', { TextContent: '2' }],
         ['price', { TextContent: '1000000' }],
+        ['thumbnail', { TextContent: 'https://via.placeholder.com/256' }],
       ],
     });
   }

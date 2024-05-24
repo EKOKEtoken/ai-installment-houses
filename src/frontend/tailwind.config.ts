@@ -19,6 +19,7 @@ const config: Config = {
         brandBtn: '#242c46',
         page: '#f1eef5',
         text: '#606060',
+        light: '#a0a0a0',
       },
       fontSize: {
         xl: '1.5rem',

@@ -11,6 +11,10 @@ export namespace Route {
 
     return `/${route}`;
   }
+
+  export function tokenUrl(tokenId: bigint): string {
+    return `/token/${tokenId}`;
+  }
 }
 
 export interface MenuEntries {

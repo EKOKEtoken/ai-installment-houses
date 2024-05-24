@@ -15,7 +15,6 @@ export interface ApiTokenMetadata {
 }
 
 export interface ApiListing {
-  id: bigint;
   seller: {
     owner: string;
     subaccount: number[];
@@ -24,7 +23,12 @@ export interface ApiListing {
   expirationNs: number;
 }
 
+export interface ApiGetListing {
+  listing: ApiListing;
+  metadata: ApiTokenMetadata;
+}
+
 export interface ApiListings {
-  listings: ApiListing[];
+  listings: ApiGetListing[];
   total: number;
 }

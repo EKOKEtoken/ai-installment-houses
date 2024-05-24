@@ -2,8 +2,8 @@ import { ApiListings } from '../data/api';
 import { swapJsonRequest } from './api';
 
 const getListings = async (
-  limit: number,
   offset: number,
+  limit: number,
 ): Promise<ApiListings> => {
   return await swapJsonRequest('get_listings', mock(limit, offset), {
     limit,
@@ -15,13 +15,36 @@ const mock = (limit: number, offset: number): ApiListings => {
   const items = [];
   for (let i = offset; i < limit + limit; i++) {
     items.push({
-      id: BigInt(1),
-      seller: {
-        owner: 'rwlgt-iiaaa-aaaaa-aaaaa-cai',
-        subaccount: [],
+      listing: {
+        seller: {
+          owner: 'rwlgt-iiaaa-aaaaa-aaaaa-cai',
+          subaccount: [],
+        },
+        icpPrice: 100_000_000,
+        expirationNs: 10000000000,
       },
-      icpPrice: 100,
-      expirationNs: 10000000000,
+      metadata: {
+        token_identifier: BigInt(i),
+        minted_at: BigInt(new Date().getTime() * 1000),
+        minted_by: 'rwlgt-iiaaa-aaaaa-aaaaa-cai',
+        owner: 'rwlgt-iiaaa-aaaaa-aaaaa-cai',
+        is_burned: false,
+        properties: [
+          ['title', { TextContent: 'Trilocale in via Marangoni' }],
+          ['country', { TextContent: 'IT' }],
+          ['city', { TextContent: 'Udine' }],
+          ['address', { TextContent: 'Via Antonio Marangoni' }],
+          ['civic', { TextContent: '33' }],
+          ['zipCode', { TextContent: '33100' }],
+          ['floor', { TextContent: '1' }],
+          ['totalFloors', { TextContent: '3' }],
+          ['squareMeters', { TextContent: '100' }],
+          ['rooms', { TextContent: '3' }],
+          ['bathrooms', { TextContent: '2' }],
+          ['price', { TextContent: '1000000' }],
+          ['thumbnail', { TextContent: 'https://via.placeholder.com/256' }],
+        ],
+      },
     });
   }
 
