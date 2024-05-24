@@ -6,7 +6,7 @@ import IcConnect from '../IcConnect';
 import Link from '../reusable/Link';
 
 const Desktop = () => (
-  <Container.FlexRow className="block sm:hidden fixed h-[80px] bg-white w-full shadow-md justify-center items-center py-4 px-4">
+  <Container.FlexRow className="z-40 block sm:hidden fixed h-[80px] bg-white w-full shadow-md justify-center items-center py-4 px-4">
     <Container.FlexRow className="items-center gap-8">
       <Container.FlexRow className="items-center">
         <Container.Container className="border-brandRed border-b-4 py-2">
