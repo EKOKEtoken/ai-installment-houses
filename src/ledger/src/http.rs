@@ -9,6 +9,8 @@ use self::search::{SearchParamsReq, SearchParamsSortBy};
 use crate::app::storage::with_tokens;
 use crate::app::App;
 
+const MAX_LIMIT: usize = 20;
+
 #[derive(Deserialize)]
 struct TokenIdentifierReq {
     pub id: Nat,
@@ -71,7 +73,7 @@ impl HttpApi {
             tokens
                 .into_iter()
                 .skip(params.offset)
-                .take(params.limit)
+                .take(params.limit.min(MAX_LIMIT))
                 .collect::<Vec<_>>()
         });
 
@@ -83,19 +85,21 @@ impl HttpApi {
     }
 
     fn dip721_name() -> HttpResponse {
-        HttpResponse::ok(App::dip721_name())
+        HttpResponse::ok(serde_json::json!({"name": App::dip721_name()}))
     }
 
     fn dip721_symbol() -> HttpResponse {
-        HttpResponse::ok(App::dip721_symbol())
+        HttpResponse::ok(serde_json::json!({"symbol": App::dip721_symbol()}))
     }
 
     fn dip721_logo() -> HttpResponse {
-        HttpResponse::ok(App::dip721_logo())
+        HttpResponse::ok(serde_json::json!({"logo": App::dip721_logo()}))
     }
 
     fn dip721_total_unique_holders() -> HttpResponse {
-        HttpResponse::ok(App::dip721_total_unique_holders())
+        HttpResponse::ok(serde_json::json!(
+            serde_json::json!({"totalUniqueHolders": App::dip721_total_unique_holders()})
+        ))
     }
 
     fn dip721_token_metadata(req: HttpRequest) -> HttpResponse {
@@ -109,6 +113,6 @@ impl HttpApi {
     }
 
     fn dip721_total_supply() -> HttpResponse {
-        HttpResponse::ok(App::dip721_total_supply())
+        HttpResponse::ok(serde_json::json!({"totalSupply": App::dip721_total_supply()}))
     }
 }

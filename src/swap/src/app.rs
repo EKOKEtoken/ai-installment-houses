@@ -18,7 +18,7 @@ use icrc_ledger_types::icrc1::account::{Account, Subaccount};
 use self::client::{Dip721Client, IcrcLedgerClient};
 use self::configuration::Configuration;
 use self::inspect::Inspect;
-use self::storage::Storage;
+pub use self::storage::Storage;
 use crate::utils::{caller, canister_id, cycles, time};
 
 #[derive(Default)]

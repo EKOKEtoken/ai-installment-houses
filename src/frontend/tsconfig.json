@@ -2,7 +2,11 @@
   "compilerOptions": {
     "allowJs": true,
     "jsx": "react",
-    "lib": ["es2016", "dom"],
+    "lib": [
+      "es2016",
+      "ES2020",
+      "dom"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -11,8 +15,10 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "strict": true,
-    "target": "es5",
+    "target": "ES2020",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./src/**/*"]
+  "include": [
+    "./src/**/*"
+  ]
 }

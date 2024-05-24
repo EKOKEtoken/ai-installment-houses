@@ -102,6 +102,10 @@ impl Storage {
         })
     }
 
+    pub fn listed_tokens() -> Vec<TokenIdentifier> {
+        LISTINGS.with_borrow(|listings| listings.iter().map(|(key, _)| key.0.clone()).collect())
+    }
+
     #[inline]
     /// Given a DIP721 token, returns whether it is listed and if its listing is still valid.
     ///

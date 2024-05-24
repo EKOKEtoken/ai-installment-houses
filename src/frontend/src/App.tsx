@@ -10,6 +10,7 @@ import NotFound from './js/pages/NotFound';
 import AppContextProvider, {
   useAppContext,
 } from './js/components/App/AppContext';
+import Home from './js/pages/Home';
 
 const App = () => (
   <AppContextProvider>
@@ -35,7 +36,7 @@ const AppLayoutWrapper = () => {
       <SeoEngine />
       <main>
         <Routes>
-          <Route path="/" element={<> </>} />
+          <Route path="/" element={<Home />} />
           {/* catch all */}
           <Route path="/*" element={<NotFound />} />
         </Routes>

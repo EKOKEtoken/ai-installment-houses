@@ -44,6 +44,50 @@ This list contains the http available methods with its parameters and response.
     }
     ```
 
+    ```json
+    {
+      "listing": {
+        "seller": {
+          "owner": "principal",
+          "subaccount": []
+        },
+        "icp_price": 100,
+        "expiration_ns": 10000000000
+      }
+    }
+    ```
+
+    or `{ "listing": null }`
+
+- `get_listings`
+
+    Request:
+
+    ```json
+    {
+      "offset": 0,
+      "limit": 20
+    }
+    ```
+
+    Response:
+
+    ```json
+    {
+      "listings": [
+        {
+          "seller": {
+            "owner": "principal",
+            "subaccount": []
+          },
+          "icp_price": 100,
+          "expiration_ns": 10000000000
+        }
+      ],
+      "total": 1024
+    }
+    ```
+
 ### list
 
 List an NFT for sale.

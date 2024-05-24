@@ -31,10 +31,46 @@ This list contains the http available methods with its parameters and response.
 #### Methods
 
 - `dip721_metadata`
+
+    ```json
+    {
+      "created_at": 1,
+      "custodians": [
+        ""
+      ],
+      "logo": "",
+      "name": "",
+      "symbol": "",
+      "upgraded_at": 0,
+    }
+    ```
+
 - `dip721_name`
+
+    ```json
+    { "name": "EKOKE" }
+    ```
+
 - `dip721_symbol`
+
+    ```json
+    { "symbol": "EKOKE" }
+    ```
+
 - `dip721_logo`
+
+    ```json
+    { "logo": "base64" }
+    ```
+
 - `dip721_total_unique_holders`
+
+    ```json
+    {
+      "totalUniqueHolders": []
+    }
+    ```
+
 - `dip721_token_metadata`
 
     ```json
@@ -46,10 +82,88 @@ This list contains the http available methods with its parameters and response.
     }
     ```
 
+    ```json
+    {
+      "token_identifier": 1,
+      "minted_at": 1,
+      "minted_by": "rwlgt-iiaaa-aaaaa-aaaaa-cai",
+      "owner": ["rwlgt-iiaaa-aaaaa-aaaaa-cai"],
+      "operator": [],
+      "transferred_at": [],
+      "transferred_by": [],
+      "approved_at": [],
+      "approved_by": [],
+      "is_burned": false,
+      "burned_at": [],
+      "burned_by": [],
+      "properties": [
+        ["country", { "TextContent": "Italy" }],
+        ["city", { "TextContent": "Udine" }],
+        ["address", { "TextContent": "Via Antonio Marangoni" }],
+        ["civic", { "TextContent": "33" }],
+        ["zipCode", { "TextContent": "33100" }],
+      ],
+    }
+    ```
+
 - `dip721_total_supply`
+
+    ```json
+    {
+      "totalSupply": 1200
+    }
+    ```
+
+- `search`
+
+    In addition to the previous method, there is an additional search method, which can be used to search tokens by parameters.
+
+    Params:
+
+    `limit`: limit number of tokens to return
+    `offset`: offset to start with
+    `properties`:
+      `key` => `%value%`: key to search in properties with vlue contained in it
+    `sortBy`: `id` or `mintedAt`
+
+    ```json
+    [
+      {
+        "token_identifier": 1,
+        "minted_at": 1,
+        "minted_by": "rwlgt-iiaaa-aaaaa-aaaaa-cai",
+        "owner": ["rwlgt-iiaaa-aaaaa-aaaaa-cai"],
+        "operator": [],
+        "transferred_at": [],
+        "transferred_by": [],
+        "approved_at": [],
+        "approved_by": [],
+        "is_burned": false,
+        "burned_at": [],
+        "burned_by": [],
+        "properties": [
+          ["country", { "TextContent": "IT" }],
+          ["city", { "TextContent": "Udine" }],
+          ["address", { "TextContent": "Via Antonio Marangoni" }],
+          ["civic", { "TextContent": "33" }],
+          ["zipCode", { "TextContent": "33100" }],
+        ],
+      }
+    ]
+    ```
 
 ## Token Metadata
 
 Each NFT has the following properties, following the DIP721 standard.
 
-- ...
+- country: ISO3166 encoded country name
+- city
+- address
+- civic
+- zipCode
+- floor
+- totalFloors
+- squareMeters
+- rooms
+- bathrooms
+- price
