@@ -23,11 +23,18 @@ const mock = (params: SearchParams): ApiTokenMetadata[] => {
   const metadata: ApiTokenMetadata[] = [];
   for (let i = 1; i <= params.limit; i++) {
     metadata.push({
-      token_identifier: BigInt(i + params.offset),
+      token_identifier: [BigInt(i + params.offset)],
       minted_at: BigInt(new Date().getTime() * 1000),
       minted_by: 'rwlgt-iiaaa-aaaaa-aaaaa-cai',
       owner: 'rwlgt-iiaaa-aaaaa-aaaaa-cai',
       is_burned: false,
+      burned_by: null,
+      burned_at: null,
+      operator: null,
+      transferred_by: null,
+      transferred_at: null,
+      approved_at: null,
+      approved_by: null,
       properties: [
         ['title', { TextContent: 'Trilocale in via Marangoni' }],
         ['country', { TextContent: 'IT' }],

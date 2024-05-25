@@ -61,3 +61,42 @@ pub fn alice() -> Principal {
 pub fn bob() -> Principal {
     Principal::from_text("bs5l3-6b3zu-dpqyj-p2x4a-jyg4k-goneb-afof2-y5d62-skt67-3756q-dqe").unwrap()
 }
+
+#[cfg(test)]
+mod test {
+
+    use crate::utils::time;
+
+    use super::*;
+
+    use dip721_rs::GenericValue;
+
+    #[test]
+    fn test_serialize_token_metadata() {
+        let token = with_mock_token(65536u64, |token| {
+            token.approved_at = Some(time());
+            token.approved_by = Some(alice());
+            token.burned_at = None;
+            token.burned_by = None;
+            token.minted_at = time();
+            token.minted_by = alice();
+            token.owner = Some(alice());
+            token.transferred_at = Some(time());
+            token.transferred_by = Some(alice());
+            token.operator = Some(bob());
+            token.is_burned = false;
+            token.properties = vec![
+                (
+                    "floor".to_string(),
+                    GenericValue::TextContent("12".to_string()),
+                ),
+                (
+                    "rooms".to_string(),
+                    GenericValue::TextContent("3".to_string()),
+                ),
+            ]
+        });
+
+        println!("{}", serde_json::to_string(&token).unwrap());
+    }
+}

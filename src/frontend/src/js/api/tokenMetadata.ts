@@ -9,11 +9,18 @@ const tokenMetadata = async (id: bigint): Promise<ApiTokenMetadata> => {
 
 const mock = (id: bigint): ApiTokenMetadata => {
   return {
-    token_identifier: id,
+    token_identifier: [id],
     minted_at: BigInt(new Date().getTime() * 1000),
     minted_by: 'rwlgt-iiaaa-aaaaa-aaaaa-cai',
     owner: 'rwlgt-iiaaa-aaaaa-aaaaa-cai',
     is_burned: false,
+    burned_by: null,
+    burned_at: null,
+    operator: null,
+    transferred_by: null,
+    transferred_at: null,
+    approved_at: null,
+    approved_by: null,
     properties: [
       ['title', { TextContent: 'Trilocale in via Marangoni' }],
       ['country', { TextContent: 'IT' }],

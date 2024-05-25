@@ -1,16 +1,16 @@
 export interface ApiTokenMetadata {
-  token_identifier: bigint;
-  minted_at: bigint;
-  minted_by: string;
-  owner?: string;
-  operator?: string;
-  transferred_at?: string;
-  transferred_by?: string;
-  approved_at?: string;
-  approved_by?: string;
+  token_identifier: bigint[];
+  minted_at: bigint | null;
+  minted_by: string | null;
+  owner: string | null;
+  operator: string | null;
+  transferred_at: string | null;
+  transferred_by: string | null;
+  approved_at: string | null;
+  approved_by: string | null;
   is_burned: boolean;
-  burned_at?: string;
-  burned_by?: string;
+  burned_at: string | null;
+  burned_by: string | null;
   properties: Array<[string, { TextContent: string }]>;
 }
 

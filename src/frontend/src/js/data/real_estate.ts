@@ -23,7 +23,7 @@ class RealEstate {
 
   constructor(token: ApiTokenMetadata | ApiGetListing) {
     if ('listing' in token) {
-      this.id = token.metadata.token_identifier;
+      this.id = token.metadata.token_identifier[0]!;
       this.title = tokenTextProperty(token.metadata, 'title') || '';
       this.country = tokenTextProperty(token.metadata, 'country') || '';
       this.city = tokenTextProperty(token.metadata, 'city') || '';
@@ -42,7 +42,7 @@ class RealEstate {
       this.icpPrice = token.listing.icpPrice;
       this.expirationNs = token.listing.expirationNs;
     } else {
-      this.id = token.token_identifier;
+      this.id = token.token_identifier[0]!;
       this.title = tokenTextProperty(token, 'title') || '';
       this.country = tokenTextProperty(token, 'country') || '';
       this.city = tokenTextProperty(token, 'city') || '';

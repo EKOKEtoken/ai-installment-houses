@@ -84,25 +84,22 @@ This list contains the http available methods with its parameters and response.
 
     ```json
     {
-      "token_identifier": 1,
-      "minted_at": 1,
-      "minted_by": "rwlgt-iiaaa-aaaaa-aaaaa-cai",
-      "owner": ["rwlgt-iiaaa-aaaaa-aaaaa-cai"],
-      "operator": [],
-      "transferred_at": [],
-      "transferred_by": [],
-      "approved_at": [],
-      "approved_by": [],
+      "approved_at": 1716649330575476770,
+      "approved_by": "be2us-64aaa-aaaaa-qaabq-cai",
+      "burned_at": null,
+      "burned_by": null,
       "is_burned": false,
-      "burned_at": [],
-      "burned_by": [],
+      "minted_at": 1716649330575482500,
+      "minted_by": "be2us-64aaa-aaaaa-qaabq-cai",
+      "operator": "bs5l3-6b3zu-dpqyj-p2x4a-jyg4k-goneb-afof2-y5d62-skt67-3756q-dqe",
+      "owner": "be2us-64aaa-aaaaa-qaabq-cai",
       "properties": [
-        ["country", { "TextContent": "Italy" }],
-        ["city", { "TextContent": "Udine" }],
-        ["address", { "TextContent": "Via Antonio Marangoni" }],
-        ["civic", { "TextContent": "33" }],
-        ["zipCode", { "TextContent": "33100" }],
+        ["floor", { "TextContent": "12" }],
+        ["rooms", { "TextContent": "3" }]
       ],
+      "token_identifier": [1],
+      "transferred_at": 1716649330575488020,
+      "transferred_by": "be2us-64aaa-aaaaa-qaabq-cai"
     }
     ```
 
