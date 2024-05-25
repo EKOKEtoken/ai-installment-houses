@@ -16,6 +16,7 @@ class RealEstate {
   public bathrooms: string;
   public price: string;
   public thumbnail: string;
+  public gallery: string[] = [];
   // listing
   public seller: string | null;
   public icpPrice: number | null;
@@ -38,6 +39,7 @@ class RealEstate {
       this.bathrooms = tokenTextProperty(token.metadata, 'bathrooms') || '';
       this.price = tokenTextProperty(token.metadata, 'price') || '';
       this.thumbnail = tokenTextProperty(token.metadata, 'thumbnail') || '';
+      this.gallery = getGalleryFromProps(token.metadata);
       this.seller = token.listing.seller.owner;
       this.icpPrice = token.listing.icpPrice;
       this.expirationNs = token.listing.expirationNs;
@@ -56,11 +58,34 @@ class RealEstate {
       this.bathrooms = tokenTextProperty(token, 'bathrooms') || '';
       this.price = tokenTextProperty(token, 'price') || '';
       this.thumbnail = tokenTextProperty(token, 'thumbnail') || '';
+      this.gallery = getGalleryFromProps(token);
       this.seller = null;
       this.icpPrice = null;
       this.expirationNs = null;
     }
   }
 }
+
+const getGalleryFromProps = (token: ApiTokenMetadata): string[] => {
+  const gallery = token.properties.find(
+    (property) => property[0] === 'gallery',
+  );
+  if (gallery) {
+    const genericValue = gallery[1];
+    // check if generic value is `{ NestedContent: TokenProperty[] }`
+    if ('NestedContent' in genericValue) {
+      return genericValue.NestedContent.map((galleryItem) => {
+        if ('TextContent' in galleryItem[1]) {
+          const galleryItemUrl = galleryItem[1].TextContent;
+          return galleryItemUrl;
+        } else {
+          return null;
+        }
+      }).filter((galleryItem) => galleryItem !== null) as string[];
+    }
+  }
+
+  return [];
+};
 
 export default RealEstate;

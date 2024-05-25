@@ -12,6 +12,7 @@ import AppContextProvider, {
 } from './js/components/App/AppContext';
 import Home from './js/pages/Home';
 import Header from './js/components/Header';
+import Token from './js/pages/Token';
 
 const App = () => (
   <AppContextProvider>
@@ -39,6 +40,7 @@ const AppLayoutWrapper = () => {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/token/:tokenId" element={<Token />} />
           {/* catch all */}
           <Route path="/*" element={<NotFound />} />
         </Routes>

@@ -84,21 +84,30 @@ This list contains the http available methods with its parameters and response.
 
     ```json
     {
-      "approved_at": 1716649330575476770,
+      "approved_at": 1716650205446390569,
       "approved_by": "be2us-64aaa-aaaaa-qaabq-cai",
       "burned_at": null,
       "burned_by": null,
       "is_burned": false,
-      "minted_at": 1716649330575482500,
+      "minted_at": 1716650205446419448,
       "minted_by": "be2us-64aaa-aaaaa-qaabq-cai",
       "operator": "bs5l3-6b3zu-dpqyj-p2x4a-jyg4k-goneb-afof2-y5d62-skt67-3756q-dqe",
       "owner": "be2us-64aaa-aaaaa-qaabq-cai",
       "properties": [
         ["floor", { "TextContent": "12" }],
-        ["rooms", { "TextContent": "3" }]
+        ["rooms", { "TextContent": "3" }],
+        [
+          "gallery",
+          {
+            "NestedContent": [
+              ["1", { "TextContent": "img" }],
+              ["2", { "TextContent": "img2" }]
+            ]
+          }
+        ]
       ],
-      "token_identifier": [1],
-      "transferred_at": 1716649330575488020,
+      "token_identifier": [65536],
+      "transferred_at": 1716650205446441178,
       "transferred_by": "be2us-64aaa-aaaaa-qaabq-cai"
     }
     ```

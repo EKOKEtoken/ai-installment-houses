@@ -50,6 +50,17 @@ const mock = (limit: number, offset: number): ApiListings => {
           ['bathrooms', { TextContent: '2' }],
           ['price', { TextContent: '1000000' }],
           ['thumbnail', { TextContent: 'https://via.placeholder.com/256' }],
+          [
+            'gallery',
+            {
+              NestedContent: [
+                ['1', { TextContent: 'https://via.placeholder.com/256' }],
+                ['2', { TextContent: 'https://via.placeholder.com/256' }],
+                ['3', { TextContent: 'https://via.placeholder.com/256' }],
+                ['4', { TextContent: 'https://via.placeholder.com/256' }],
+              ],
+            },
+          ],
         ],
       },
     });

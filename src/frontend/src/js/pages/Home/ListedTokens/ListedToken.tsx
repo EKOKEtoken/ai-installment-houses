@@ -14,6 +14,7 @@ const ListedToken = ({ token }: Props) => (
     <Container.Card className="bg-white flex-1 !p-2 transition-transform transform scale-100 hover:scale-105 ">
       <Container.FlexCols className="w-full items-center">
         <img
+          loading="lazy"
           src={token.thumbnail}
           alt={token.address}
           width={256}
@@ -21,11 +22,11 @@ const ListedToken = ({ token }: Props) => (
           className="max-h-[256px] max-w-[256px] w-auto object-cover rounded-lg"
         />
         <span className="text-lg text-brand font-semibold">{token.title}</span>
-        <Container.FlexRow className="items-center justify-between w-full">
+        <Container.FlexRow className="items-center justify-between w-full px-2">
           <span className="text-xs text-light">
             Token #{token.id.toString()}
           </span>
-          <span className="text-brandRed">
+          <span className="text-brandRed font-semibold">
             {e8sToIcp(BigInt(token.icpPrice!)).toLocaleString('en-US', {
               style: 'currency',
               currency: 'ICP',

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Container from './Container';
 
 const BlankPage = (props: React.HTMLProps<HTMLDivElement>) => {
   return (
@@ -24,7 +23,7 @@ const PageContent = (props: React.HTMLProps<HTMLDivElement>) => {
       itemProp={props.itemProp}
       itemScope={props.itemScope}
       itemType={props.itemType}
-      className={`${props.className} w-page pt-[120px] mx-auto`}
+      className={`${props.className} w-page mx-auto py-[120px]`}
     >
       {props.children}
     </div>

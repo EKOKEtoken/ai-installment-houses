@@ -94,6 +94,19 @@ mod test {
                     "rooms".to_string(),
                     GenericValue::TextContent("3".to_string()),
                 ),
+                (
+                    "gallery".to_string(),
+                    GenericValue::NestedContent(vec![
+                        (
+                            "1".to_string(),
+                            GenericValue::TextContent("img".to_string()),
+                        ),
+                        (
+                            "2".to_string(),
+                            GenericValue::TextContent("img2".to_string()),
+                        ),
+                    ]),
+                ),
             ]
         });
 

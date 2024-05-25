@@ -1,3 +1,8 @@
+type TokenProperty = [
+  string,
+  { TextContent: string } | { NestedContent: TokenProperty[] },
+];
+
 export interface ApiTokenMetadata {
   token_identifier: bigint[];
   minted_at: bigint | null;
@@ -11,7 +16,7 @@ export interface ApiTokenMetadata {
   is_burned: boolean;
   burned_at: string | null;
   burned_by: string | null;
-  properties: Array<[string, { TextContent: string }]>;
+  properties: TokenProperty[];
 }
 
 export interface ApiListing {
