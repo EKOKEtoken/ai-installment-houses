@@ -10,7 +10,15 @@ interface SeoData {
 
 const PAGE_TITLES: SeoPages = {
   '/': {
-    title: '',
+    title: 'AI Installment Houses',
+    description: '',
+  },
+  token: {
+    title: 'Token',
+    description: '',
+  },
+  tokens: {
+    title: 'Tokens',
     description: '',
   },
 };

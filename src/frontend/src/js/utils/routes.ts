@@ -1,5 +1,6 @@
 export enum Route {
   HOME = 'home',
+  MY_NFTS = 'mynfts',
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -14,6 +15,10 @@ export namespace Route {
 
   export function tokenUrl(tokenId: bigint): string {
     return `/token/${tokenId}`;
+  }
+
+  export function editListingUrl(tokenId: bigint): string {
+    return `/mynfts/${tokenId}`;
   }
 }
 

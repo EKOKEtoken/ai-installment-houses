@@ -23,7 +23,7 @@ const PageContent = (props: React.HTMLProps<HTMLDivElement>) => {
       itemProp={props.itemProp}
       itemScope={props.itemScope}
       itemType={props.itemType}
-      className={`${props.className} w-page mx-auto py-[120px]`}
+      className={`${props.className} w-page mx-auto py-[120px] min-h-[calc(100vh-120px)]`}
     >
       {props.children}
     </div>

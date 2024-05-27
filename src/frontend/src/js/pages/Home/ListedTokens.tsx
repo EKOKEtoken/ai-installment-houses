@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import getListings from '../../api/getListings';
 import Container from '../../components/reusable/Container';
-import RealEstate from '../../data/real_estate';
+import RealEstate, { fromToken } from '../../data/real_estate';
 import ListedToken from './ListedTokens/ListedToken';
 
 const ListedTokens = () => {
@@ -10,7 +10,7 @@ const ListedTokens = () => {
 
   React.useEffect(() => {
     getListings(0, 20).then((data) => {
-      const estates = data.listings.map((item) => new RealEstate(item));
+      const estates = data.listings.map((item) => fromToken(item));
       setListedTokens(estates);
     });
   });

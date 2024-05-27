@@ -19,6 +19,10 @@ export const e8sToIcpStr = (e8s: bigint | number): string => {
   return arr.join('');
 };
 
+export const e8sToIcpNumber = (e8s: number): number => {
+  return e8s / 10 ** DECIMALS;
+};
+
 export const e8sToIcp = (e8s: bigint): bigint => {
   return e8s / 10n ** BigInt(DECIMALS);
 };

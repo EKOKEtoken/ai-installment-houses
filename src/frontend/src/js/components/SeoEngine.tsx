@@ -22,9 +22,22 @@ const SeoEngine = () => {
   const canonicalUrl = `https://nft.ekoketoken.com/${pathname}`;
 
   React.useEffect(() => {
-    setTitle(pageTitle(pathname));
-    setDescription(pageDescription(pathname));
-    setOgSiteName(pageOgSiteName(pathname));
+    const tokens = pathname.split('/');
+    let root = '/';
+    if (tokens.length > 1) {
+      root = tokens[1];
+      if (root === 'token') {
+        const id = tokens[2];
+        const title = `AI Installment Houses #${id}`;
+        setTitle(title);
+        setDescription(pageDescription(root));
+        setOgSiteName(title);
+        return;
+      }
+    }
+    setTitle(pageTitle(root));
+    setDescription(pageDescription(root));
+    setOgSiteName(pageOgSiteName(root));
   }, [pathname]);
 
   return (

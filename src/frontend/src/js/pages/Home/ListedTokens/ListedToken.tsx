@@ -27,7 +27,7 @@ const ListedToken = ({ token }: Props) => (
             Token #{token.id.toString()}
           </span>
           <span className="text-brandRed font-semibold">
-            {e8sToIcp(BigInt(token.icpPrice!)).toLocaleString('en-US', {
+            {e8sToIcp(BigInt(token.icpPriceE8s!)).toLocaleString('en-US', {
               style: 'currency',
               currency: 'ICP',
               minimumFractionDigits: 2,

@@ -1,23 +1,23 @@
 import * as React from 'react';
 
 import Container from './reusable/Container';
-import Page from './reusable/Page';
 import Header from './Header';
 import Footer from './Footer';
-import Home from './App/pages/Home';
+import AppSuccess from './App/AppSuccess';
+import AppError from './App/AppError';
 
 interface Props {
   children: React.ReactNode;
 }
 
 const AppLayout = ({ children }: Props) => (
-  <Page.BlankPage>
+  <Container.Container>
+    <AppError />
+    <AppSuccess />
     <Header />
-    <Container.PageContent className="py-8 min-h-[80vh]">
-      {children}
-    </Container.PageContent>
+    <Container.Container>{children}</Container.Container>
     <Footer />
-  </Page.BlankPage>
+  </Container.Container>
 );
 
 export default AppLayout;

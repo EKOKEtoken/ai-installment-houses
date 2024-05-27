@@ -1,70 +1,100 @@
-import { tokenTextProperty } from '../utils';
+import { e8sToIcpNumber, tokenTextProperty } from '../utils';
 import { ApiGetListing, ApiTokenMetadata } from './api';
 
-class RealEstate {
-  public id: bigint;
-  public title: string;
-  public country: string;
-  public city: string;
-  public address: string;
-  public civic: string;
-  public zipCode: string;
-  public floor: string;
-  public totalFloors: string;
-  public squareMeters: string;
-  public rooms: string;
-  public bathrooms: string;
-  public price: string;
-  public thumbnail: string;
-  public gallery: string[] = [];
-  // listing
-  public seller: string | null;
-  public icpPrice: number | null;
-  public expirationNs: number | null;
-
-  constructor(token: ApiTokenMetadata | ApiGetListing) {
-    if ('listing' in token) {
-      this.id = token.metadata.token_identifier[0]!;
-      this.title = tokenTextProperty(token.metadata, 'title') || '';
-      this.country = tokenTextProperty(token.metadata, 'country') || '';
-      this.city = tokenTextProperty(token.metadata, 'city') || '';
-      this.address = tokenTextProperty(token.metadata, 'address') || '';
-      this.civic = tokenTextProperty(token.metadata, 'civic') || '';
-      this.zipCode = tokenTextProperty(token.metadata, 'zipCode') || '';
-      this.floor = tokenTextProperty(token.metadata, 'floor') || '';
-      this.totalFloors = tokenTextProperty(token.metadata, 'totalFloors') || '';
-      this.squareMeters =
-        tokenTextProperty(token.metadata, 'squareMeters') || '';
-      this.rooms = tokenTextProperty(token.metadata, 'rooms') || '';
-      this.bathrooms = tokenTextProperty(token.metadata, 'bathrooms') || '';
-      this.price = tokenTextProperty(token.metadata, 'price') || '';
-      this.thumbnail = tokenTextProperty(token.metadata, 'thumbnail') || '';
-      this.gallery = getGalleryFromProps(token.metadata);
-      this.seller = token.listing.seller.owner;
-      this.icpPrice = token.listing.icpPrice;
-      this.expirationNs = token.listing.expirationNs;
-    } else {
-      this.id = token.token_identifier[0]!;
-      this.title = tokenTextProperty(token, 'title') || '';
-      this.country = tokenTextProperty(token, 'country') || '';
-      this.city = tokenTextProperty(token, 'city') || '';
-      this.address = tokenTextProperty(token, 'address') || '';
-      this.civic = tokenTextProperty(token, 'civic') || '';
-      this.zipCode = tokenTextProperty(token, 'zipCode') || '';
-      this.floor = tokenTextProperty(token, 'floor') || '';
-      this.totalFloors = tokenTextProperty(token, 'totalFloors') || '';
-      this.squareMeters = tokenTextProperty(token, 'squareMeters') || '';
-      this.rooms = tokenTextProperty(token, 'rooms') || '';
-      this.bathrooms = tokenTextProperty(token, 'bathrooms') || '';
-      this.price = tokenTextProperty(token, 'price') || '';
-      this.thumbnail = tokenTextProperty(token, 'thumbnail') || '';
-      this.gallery = getGalleryFromProps(token);
-      this.seller = null;
-      this.icpPrice = null;
-      this.expirationNs = null;
-    }
-  }
+interface RealEstate {
+  id: bigint;
+  title: string;
+  description: string;
+  country: string;
+  city: string;
+  address: string;
+  owner: string | null;
+  civic: string;
+  zipCode: string;
+  floor: string;
+  totalFloors: string;
+  squareMeters: string;
+  rooms: string;
+  bathrooms: string;
+  price: number;
+  thumbnail: string;
+  gallery: string[];
+  seller: string | null;
+  icpPriceE8s: number | null;
+  icpPriceView: number | null;
+  expiration: Date | null;
 }
+
+export const fromToken = (
+  token: ApiTokenMetadata | ApiGetListing,
+): RealEstate => {
+  if ('listing' in token) {
+    return {
+      id: token.metadata.token_identifier[0]!,
+      owner: token.metadata.owner,
+      title: tokenTextProperty(token.metadata, 'title') || '',
+      description: tokenTextProperty(token.metadata, 'description') || '',
+      country: tokenTextProperty(token.metadata, 'country') || '',
+      city: tokenTextProperty(token.metadata, 'city') || '',
+      address: tokenTextProperty(token.metadata, 'address') || '',
+      civic: tokenTextProperty(token.metadata, 'civic') || '',
+      zipCode: tokenTextProperty(token.metadata, 'zipCode') || '',
+      floor: tokenTextProperty(token.metadata, 'floor') || '',
+      totalFloors: tokenTextProperty(token.metadata, 'totalFloors') || '',
+      squareMeters: tokenTextProperty(token.metadata, 'squareMeters') || '',
+      rooms: tokenTextProperty(token.metadata, 'rooms') || '',
+      bathrooms: tokenTextProperty(token.metadata, 'bathrooms') || '',
+      price: parseInt(tokenTextProperty(token.metadata, 'price') || ''),
+      thumbnail: tokenTextProperty(token.metadata, 'thumbnail') || '',
+      gallery: getGalleryFromProps(token.metadata),
+      seller: token.listing.seller.owner,
+      icpPriceE8s: token.listing.icpPrice,
+      icpPriceView: e8sToIcpNumber(token.listing.icpPrice),
+      expiration: new Date(
+        Number(token.listing.expirationNs / BigInt(1_000_000)),
+      ),
+    };
+  } else {
+    return {
+      id: token.token_identifier[0]!,
+      owner: token.owner,
+      title: tokenTextProperty(token, 'title') || '',
+      description: tokenTextProperty(token, 'description') || '',
+      country: tokenTextProperty(token, 'country') || '',
+      city: tokenTextProperty(token, 'city') || '',
+      address: tokenTextProperty(token, 'address') || '',
+      civic: tokenTextProperty(token, 'civic') || '',
+      zipCode: tokenTextProperty(token, 'zipCode') || '',
+      floor: tokenTextProperty(token, 'floor') || '',
+      totalFloors: tokenTextProperty(token, 'totalFloors') || '',
+      squareMeters: tokenTextProperty(token, 'squareMeters') || '',
+      rooms: tokenTextProperty(token, 'rooms') || '',
+      bathrooms: tokenTextProperty(token, 'bathrooms') || '',
+      price: parseInt(tokenTextProperty(token, 'price') || ''),
+      thumbnail: tokenTextProperty(token, 'thumbnail') || '',
+      gallery: getGalleryFromProps(token),
+      seller: null,
+      icpPriceE8s: null,
+      icpPriceView: null,
+      expiration: null,
+    };
+  }
+};
+
+export const setListing = (
+  realEstate: RealEstate,
+  listing: ApiGetListing,
+): RealEstate => {
+  return {
+    ...realEstate,
+    seller: listing.listing.seller.owner,
+    icpPriceE8s: listing.listing.icpPrice,
+    icpPriceView: e8sToIcpNumber(listing.listing.icpPrice),
+    expiration: new Date(
+      Number(listing.listing.expirationNs / BigInt(1_000_000)),
+    ),
+  };
+};
 
 const getGalleryFromProps = (token: ApiTokenMetadata): string[] => {
   const gallery = token.properties.find(

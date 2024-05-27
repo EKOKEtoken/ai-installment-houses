@@ -25,7 +25,7 @@ export interface ApiListing {
     subaccount: number[];
   };
   icpPrice: number;
-  expirationNs: number;
+  expirationNs: bigint;
 }
 
 export interface ApiGetListing {

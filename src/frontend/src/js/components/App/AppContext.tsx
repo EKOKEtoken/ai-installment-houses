@@ -3,14 +3,23 @@ import { WalletProvider } from 'react-ic-wallet';
 import { getUserIcWallet } from '../../storage';
 
 interface Context {
+  appSuccess?: string;
+  appError?: string;
   icWallet?: WalletProvider;
+  setAppError: (error?: string) => void;
+  setAppSuccess: (message?: string) => void;
   setIcWallet?: (icWallet: WalletProvider | undefined) => void;
 }
 
-const AppContext = React.createContext<Context>({});
+const AppContext = React.createContext<Context>({
+  setAppError: () => {},
+  setAppSuccess: () => {},
+});
 
 const AppContextProvider = ({ children }: { children?: React.ReactNode }) => {
   const [icWallet, setIcWallet] = React.useState<WalletProvider | undefined>();
+  const [appError, setAppError] = React.useState<string | undefined>();
+  const [appSuccess, setAppSuccess] = React.useState<string>();
 
   React.useEffect(() => {
     const userWallet = getUserIcWallet();
@@ -20,7 +29,16 @@ const AppContextProvider = ({ children }: { children?: React.ReactNode }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ icWallet, setIcWallet }}>
+    <AppContext.Provider
+      value={{
+        appError,
+        appSuccess,
+        icWallet,
+        setAppError,
+        setAppSuccess,
+        setIcWallet,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
