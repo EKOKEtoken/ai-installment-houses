@@ -15,6 +15,8 @@ import Button from '../../components/reusable/Button';
 import Link from '../../components/reusable/Link';
 import { Route } from '../../utils/routes';
 import { useAgentContext } from '../../ic/AgentContext';
+import TaskList from '../../components/shared/TaskList';
+import buyTokenTasks from '../../tasks/BuyTokenTask';
 
 interface Props {
   realEstate: RealEstate;
@@ -22,7 +24,7 @@ interface Props {
 
 const ListingInfo = ({ realEstate }: Props) => {
   const { setAppError, setAppSuccess } = useAppContext();
-  const { ledger, swap } = useAgentContext();
+  const { icpLedger, swap } = useAgentContext();
   const { status, principal } = useIcWallet();
   const [listing, setListing] = React.useState<ApiListing>();
   const [usdPrice, setUsdPrice] = React.useState<number | null>();
@@ -30,8 +32,8 @@ const ListingInfo = ({ realEstate }: Props) => {
   const [tokenBought, setTokenBought] = React.useState<boolean>(false);
 
   const onBuyToken = () => {
-    if (ledger === undefined || swap === undefined) {
-      setAppError('Ledger or swap not available');
+    if (icpLedger === undefined || swap === undefined) {
+      setAppError('Ledger or swap canisters not available');
       return;
     }
     setBuyToken(true);
@@ -78,41 +80,57 @@ const ListingInfo = ({ realEstate }: Props) => {
   const expiration = new Date(expirationMs);
 
   return (
-    <Container.Container className="border border-gray-200 rounded p-4">
-      <Container.FlexCols className="gap-1">
-        <Container.Container>
-          <span className="block text-text">Current price</span>
-        </Container.Container>
-        <Container.FlexRow className="gap-4 items-center">
-          <span className="block text-brand text-xl">
-            {icpPrice.toLocaleString('en-US', {
-              style: 'currency',
-              currency: 'ICP',
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 8,
-            })}
-          </span>
-          {usdPrice != null && (
-            <span className="block text-text text-sm">
-              {usdPrice.toLocaleString('en-US', {
+    <>
+      <Container.Container className="border border-gray-200 rounded p-4">
+        <Container.FlexCols className="gap-1">
+          <Container.Container>
+            <span className="block text-text">Current price</span>
+          </Container.Container>
+          <Container.FlexRow className="gap-4 items-center">
+            <span className="block text-brand text-xl">
+              {icpPrice.toLocaleString('en-US', {
                 style: 'currency',
-                currency: 'USD',
+                currency: 'ICP',
                 minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
+                maximumFractionDigits: 8,
               })}
             </span>
-          )}
-        </Container.FlexRow>
-        <Container.Container>
-          <span className="block text-text text-sm">
-            Listed until: {expiration.toLocaleDateString('en-US')}
-          </span>
-        </Container.Container>
-        <Container.Container className="pt-2">
-          {CtaDispatch(realEstate, status, principal, tokenBought, onBuyToken)}
-        </Container.Container>
-      </Container.FlexCols>
-    </Container.Container>
+            {usdPrice != null && (
+              <span className="block text-text text-sm">
+                {usdPrice.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </span>
+            )}
+          </Container.FlexRow>
+          <Container.Container>
+            <span className="block text-text text-sm">
+              Listed until: {expiration.toLocaleDateString('en-US')}
+            </span>
+          </Container.Container>
+          <Container.Container className="pt-2">
+            {CtaDispatch(
+              realEstate,
+              status,
+              principal,
+              tokenBought,
+              onBuyToken,
+            )}
+          </Container.Container>
+        </Container.FlexCols>
+      </Container.Container>
+      {swap === undefined || icpLedger === undefined ? null : (
+        <TaskList
+          onDone={onTokenBought}
+          run={buyToken}
+          title={`Buying token #${realEstate.id}`}
+          tasks={buyTokenTasks(realEstate, listing, swap, icpLedger)}
+        />
+      )}
+    </>
   );
 };
 

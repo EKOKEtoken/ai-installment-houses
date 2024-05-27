@@ -9,6 +9,7 @@
     - [unlist](#unlist)
     - [get\_listing](#get_listing)
     - [buy](#buy)
+  - [Buy Process](#buy-process)
 
 ## Introduction
 
@@ -141,3 +142,11 @@ Conditions:
 - the NFT must be listed for sale
 - the NFT must have `operator` set to `swap canister`
 - the `caller` must have given enough allowance (`icrc2_allowance`) to the `swap canister` for the `ICP` token
+
+## Buy Process
+
+1. Bob wants to buy an NFT listed by Alice
+2. Bob calls `icrc2_approve` on `icp-ledger`
+   1. spender: `swap` canister principal
+   2. amount: `icp_price` + `ICP_LEDGER_FEE` + `ICP_LEDGER_FEE`
+3. Bob calls `buy` on `swap`

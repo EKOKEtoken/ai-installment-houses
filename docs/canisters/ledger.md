@@ -175,3 +175,4 @@ Each NFT has the following properties, following the DIP721 standard.
 - bathrooms
 - price
 - thumbnail: base64 encoded
+- gallery: array of base64 encoded images, keys are incremental numbers
